@@ -3,6 +3,7 @@
 	<name>phprecipeDB</name>
 	<comment></comment>
 	<projects>
+		<project>yii-1.1.6</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

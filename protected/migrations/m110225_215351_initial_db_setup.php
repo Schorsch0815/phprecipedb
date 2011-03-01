@@ -1,0 +1,115 @@
+<?php
+
+class m110225_215351_initial_db_setup extends CDbMigration
+{
+
+    public function up()
+    {
+        /**
+         * create ingrediet table
+         */
+        $this
+            ->createTable('tbl_ingredient',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64) NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        /**
+         * create unit table
+         */
+        $this
+            ->createTable('tbl_unit',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'short_desc' => 'VARCHAR(20) NOT NULL',
+                    'description' => 'VARCHAR(64) NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        /**
+         * create recipe table
+         */
+        $this
+            ->createTable('tbl_recipe',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64) NOT NULL',
+                    'description' => 'VARCHAR(256) NOT NULL',
+                    'quantity' => 'FLOAT NULL', 'unit_id' => 'INT NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+            ->addForeignKey('fk_recipe_unit', 'tbl_recipe', 'unit_id',
+                'tbl_unit', 'id', 'RESTRICT', 'CASCADE');
+
+        /**
+         * create preperation step table
+         */
+        $this
+            ->createTable('tbl_preperation_step',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64) NOT NULL',
+                    'description' => 'VARCHAR(256) NOT NULL',
+                    'recipe_id' => 'INT NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+            ->addForeignKey('fk_preperation_step_recipe',
+                'tbl_preperation_step', 'recipe_id', 'tbl_recipe', 'id',
+                'RESTRICT', 'CASCADE');
+
+        /**
+         * create ingredient section table
+         */
+        $this
+            ->createTable('tbl_ingredient_section',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64) NOT NULL',
+                    'seq_no' => 'INT NOT NULL', 'recipe_id' => 'INT NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+            ->addForeignKey('fk_ingredient_section_recipe',
+                'tbl_ingredient_section', 'recipe_id', 'tbl_recipe', 'id',
+                'RESTRICT', 'CASCADE');
+
+        /**
+         * create ingredient entry table
+         */
+        $this
+            ->createTable('tbl_ingredient_entry',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT',
+                    'ingredient_section_id' => 'INT NOT NULL',
+                    'ingredient_section_recipe_id' => 'INT NOT NULL',
+                    'PRIMARY KEY (`id`, `ingredient_section_id`, `ingredient_section_recipe_id`)',
+                    'ingredient_id' => 'INT NOT NULL',
+                    'quantity' => 'FLOAT NULL', 'unit_id' => 'INT NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+            ->addForeignKey('fk_ingredient_entry_ingredient_section',
+                'tbl_ingredient_entry', 'ingredient_section_id',
+                'tbl_ingredient_section', 'id', 'RESTRICT', 'CASCADE');
+        $this
+            ->addForeignKey('fk_ingredient_entry_ingredient',
+                'tbl_ingredient_entry', 'ingredient_id', 'tbl_ingredient',
+                'id', 'RESTRICT', 'CASCADE');
+        $this
+            ->addForeignKey('fk_ingredient_entry_unit', 'tbl_ingredient_entry',
+                'unit_id', 'tbl_unit', 'id', 'RESTRICT', 'CASCADE');
+
+    }
+
+    public function down()
+    {
+        $this->dropTable('tbl_ingredient_entry');
+        $this->dropTable('tbl_ingredient_section');
+        $this->dropTable('tbl_preperation_step');
+        $this->dropTable('tbl_recipe');
+        $this->dropTable('tbl_unit');
+        $this->dropTable('tbl_ingredient');
+    }
+}

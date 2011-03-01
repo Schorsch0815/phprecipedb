@@ -7,9 +7,6 @@ return CMap::mergeArray(
 			'fixture'=>array(
 				'class'=>'system.test.CDbFixtureManager',
 			),
-			'db'=>array(
-                'connectionString' => 'mysql:host=localhost;dbname=phprecipe_test',
-			),
 		),
 	)
 );
