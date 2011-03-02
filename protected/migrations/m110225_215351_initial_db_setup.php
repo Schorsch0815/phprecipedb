@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * migration script for initial database setup
+ */
 class m110225_215351_initial_db_setup extends CDbMigration
 {
 
