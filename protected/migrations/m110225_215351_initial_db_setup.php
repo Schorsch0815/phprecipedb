@@ -2,11 +2,21 @@
 /*
  * migration script for initial database setup
  */
+
 class m110225_215351_initial_db_setup extends CDbMigration
 {
 
     public function up()
     {
+        /**
+         * create unit type table
+         */
+        $this
+            ->createTable('tbl_unit_type',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64) NOT NULL',
+                ),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
         /**
          * create ingrediet table
          */
@@ -25,8 +35,14 @@ class m110225_215351_initial_db_setup extends CDbMigration
                 array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
                     'short_desc' => 'VARCHAR(20) NOT NULL',
                     'description' => 'VARCHAR(64) NOT NULL',
+                    'unit_type_id' => 'INT NOT NULL', 'is_base_unit' => 'BOOL',
+                    'base_unit_factor' => 'FLOAT NOT NULL'
                 ),
                 'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+            ->addForeignKey('fk_unit_unit_type', 'tbl_unit', 'unit_type_id',
+                'tbl_unit_type', 'id', 'RESTRICT', 'CASCADE');
 
         /**
          * create recipe table
@@ -113,5 +129,6 @@ class m110225_215351_initial_db_setup extends CDbMigration
         $this->dropTable('tbl_recipe');
         $this->dropTable('tbl_unit');
         $this->dropTable('tbl_ingredient');
+        $this->dropTable('tbl_unit_type');
     }
 }
