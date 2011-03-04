@@ -8,7 +8,11 @@ return CMap::mergeArray(
 				'class'=>'system.test.CDbFixtureManager',
 			),
 			'db'=>array(
-                'connectionString' => 'mysql:host=localhost;dbname=phprecipe_test',
+                'connectionString' => 'mysql:host=localhost;dbname=phprecipedb_test',
+                'emulatePrepare' => true,
+                'username' => 'root',
+                'password' => 'SQLIsGood4Me',
+                'charset' => 'utf8',
 			),
 		),
 	)
