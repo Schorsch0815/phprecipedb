@@ -19,6 +19,7 @@
         <mkdir dir="${basedir}/build/unit"/>
     </target>
 
+	<!-- phpdoc: -->
     <target name="phpdoc">
         <exec dir="${basedir}" executable="phpdoc">
             <arg line="-d . -i protected/vendors/ZEND/* -i build/* -i extras/* -t ${basedir}/build/api"/>
