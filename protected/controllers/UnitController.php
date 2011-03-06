@@ -173,4 +173,13 @@ class UnitController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	/**
+	 * get unit type options
+	 */
+	public function getUnitTypeOptions()
+	{
+	    return UnitType::getUnitTypeOptions();
+	}
+
 }

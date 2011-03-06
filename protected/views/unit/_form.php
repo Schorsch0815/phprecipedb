@@ -23,14 +23,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'unit_type_id'); ?>
-		<?php echo $form->textField($model,'unit_type_id'); ?>
+		<?php echo $form->dropDownList($model,'unit_type_id', $this->getUnitTypeOptions()); ?>
 		<?php echo $form->error($model,'unit_type_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_base_unit'); ?>
-		<?php echo $form->textField($model,'is_base_unit'); ?>
-		<?php echo $form->error($model,'is_base_unit'); ?>
 	</div>
 
 	<div class="row">

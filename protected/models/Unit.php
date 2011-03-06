@@ -36,6 +36,21 @@ class Unit extends CActiveRecord
 	}
 
 	/**
+	 * This method ensures that the new entered unit is not a base unit
+	 * Enter description here ...
+	 */
+	protected function beforeValidate()
+    {
+        if ($this->isNewRecord)
+        {
+            // it's not allowed to create new base units
+            // ( base units has to be defined as base line setup)
+            $this->is_base_unit = 0;
+        }
+        return parent::beforeValidate();
+    }
+
+	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -46,6 +61,7 @@ class Unit extends CActiveRecord
 			array('short_desc, description, unit_type_id, base_unit_factor', 'required'),
 			array('unit_type_id, is_base_unit', 'numerical', 'integerOnly'=>true),
 			array('base_unit_factor', 'numerical'),
+			array('is_base_unit', 'safe'),
 			array('short_desc', 'length', 'max'=>20),
 			array('description', 'length', 'max'=>64),
 			// The following rule is used by search().
@@ -105,4 +121,5 @@ class Unit extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 }

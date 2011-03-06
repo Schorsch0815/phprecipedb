@@ -86,4 +86,21 @@ class UnitType extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	 * get the array for unit type options
+	 */
+	public function getUnitTypeOptions()
+	{
+	    $lUnitTypes = self::model()->findAll();
+
+	    $lUnitTypeOptions = array();
+
+	    foreach($lUnitTypes as $i)
+	    {
+	        $lUnitTypeOptions[$i->id]=$i->name;
+	    }
+
+	    return $lUnitTypeOptions;
+	}
 }
