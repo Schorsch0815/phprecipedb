@@ -23,13 +23,16 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'unit_type_id'); ?>
-		<?php echo $form->dropDownList($model,'unit_type_id', $this->getUnitTypeOptions()); ?>
+		<?php echo $form->dropDownList($model,'unit_type_id', $this->getUnitTypeOptions(),
+		array( 'ajax' => array( 'type'=>'POST', 'url' => CController::createUrl('unit/getBaseUnit'),
+		'update'=>'#base_unit') ) ); ?>
 		<?php echo $form->error($model,'unit_type_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'base_unit_factor'); ?>
 		<?php echo $form->textField($model,'base_unit_factor'); ?>
+		[<span id='base_unit'><?php echo $model->getBaseUnit()->short_desc ?></span>]
 		<?php echo $form->error($model,'base_unit_factor'); ?>
 	</div>
 

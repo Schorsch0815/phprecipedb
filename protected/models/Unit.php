@@ -18,6 +18,8 @@
  */
 class Unit extends CActiveRecord
 {
+    public $mBaseUnit = null;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Unit the static model class
@@ -122,4 +124,29 @@ class Unit extends CActiveRecord
 		));
 	}
 
+	/**
+	 *
+	 * Enter description here ...
+	 * @param unknown_type $unitId
+	 */
+	public function getBaseUnit()
+	{
+	    if ($this->unit_type_id != null)
+	        $this->mBaseUnit=self::initBaseUnit( $this->unit_type_id );
+
+        return $this->mBaseUnit;
+	}
+
+    /**
+	 *
+	 * Enter description here ...
+	 * @param unknown_type $unitId
+	 */
+	public function initBaseUnit($unitTypeId)
+	{
+        $data=self::model()->find("unit_type_id = $unitTypeId AND is_base_unit = 1" );
+
+        return $data;
+
+	}
 }

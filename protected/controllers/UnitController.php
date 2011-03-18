@@ -28,7 +28,7 @@ class UnitController extends Controller
     {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'), 'users' => array('*'),
+                'actions' => array('index', 'view', 'getBaseUnit'), 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update'), 'users' => array('@'),
@@ -72,7 +72,9 @@ class UnitController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('create', array('model' => $model,));
+        $model->mBaseUnit = Unit::initBaseUnit( key(UnitType::getUnitTypeOptions() ) );
+
+        $this->render('create', array('model' => $model, ) );
     }
 
     /**
@@ -144,6 +146,14 @@ class UnitController extends Controller
             $model->attributes = $_GET['Unit'];
 
         $this->render('admin', array('model' => $model,));
+    }
+
+    /**
+     *
+     */
+    public function actionGetBaseUnit()
+    {
+        echo Unit::initBaseUnit( $_POST['Unit']['unit_type_id'] )->short_desc;
     }
 
     /**
