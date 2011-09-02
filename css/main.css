@@ -227,3 +227,87 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+#wzd-menu {
+	padding: 0;
+}
+
+#wzd-menu li {
+	background: #D3DDE2;
+	color: #2D6788;
+	display: inline;
+	font-weight: bold;
+	list-style: none;
+	margin: 0 20px 0 -23px;
+	padding: 0.5em 10px 0.5em 23px;
+	position: relative;
+}
+
+#wzd-menu li:before {
+	content:"";
+	display:block; /* reduce the damage in FF3.0 */
+	position:absolute;
+	width:0;
+	height:0;
+	top:0px; /* controls vertical position */
+	right:-20px; /* value = - border-left-width - border-right-width */
+	bottom:auto;
+    left:auto;
+	border-width:15px 0 15px 20px;
+	border-style:solid;
+	border-color:transparent #D3DDE2;
+	z-index: 1;
+}
+
+/* creates the smaller  triangle */
+#wzd-menu li:after {
+	content:"";
+	display:block; /* reduce the damage in FF3.0 */
+	position:absolute;
+	width:0;
+	height:0;
+
+
+	top:6px; /* value = (:before top) + (:before border-top) - (:after border-top) */
+	right:-15px; /* value = - border-left-width - border-right-width */
+	bottom:auto;
+    left:auto;
+	border-width:9px 0 9px 15px;
+	border-style:solid;
+	border-color:transparent #fff;
+	z-index: 1;
+}
+
+#wzd-menu li.wzd-first {
+	margin-left:0;
+	padding-left: 10px;
+}
+
+#wzd-menu li.wzd-last:before, #wzd-menu li.wzd-last:after {
+	display: none;
+}
+
+#wzd-menu li.wzd-active {
+	background: #3A85AF;
+}
+
+#wzd-menu li.wzd-active:before {
+	border-color:transparent #3A85AF;
+}
+
+#wzd-menu li.wzd-previous {
+	background: #c9e0ed;
+}
+
+#wzd-menu li.wzd-previous:before {
+	border-color:transparent #c9e0ed;
+}
+
+#wzd-menu li a {
+	text-decoration: none;
+}
+
+#wzd-menu li.wzd-active a, #wzd-menu li.wzd-previous a {
+	color: #333;
+}
+

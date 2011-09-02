@@ -149,4 +149,22 @@ class Unit extends CActiveRecord
         return $data;
 
 	}
+    
+    /**
+	 * get the array for unit options
+	 */
+	public function getUnitOptions()
+	{
+	    $lUnits = self::model()->findAll();
+
+	    $lUnitOptions = array();
+
+	    foreach($lUnits as $i)
+	    {
+	        $lUnitOptions[$i->id]=$i->short_desc;
+	    }
+
+	    return $lUnitOptions;
+	}
+
 }
