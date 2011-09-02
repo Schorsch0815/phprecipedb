@@ -88,13 +88,20 @@ class RecipeController
     {
         $modelName = ucfirst(str_replace('_', '', $event->step));
         $model = new $modelName();
-        $form = $model->getForm();
-        if ($form->submitted() && $form->validate()) {
-            $event->sender->save($model->attributes);
-            $event->handled = true;
+        $model->attributes = $event->data;
+        
+        if (isset($_POST["$modelName"])) {
+  			$model->attributes=$_POST["$modelName"];
+            if ($model->validate()) {
+                $event->sender->save($model->attributes);
+                $event->handled = true;
+            }
         }
         else
-            $this->render('form', compact('event', 'form'));
+        {
+            $modelName = strtolower($modelName);
+            $this->render('form', compact('modelName', 'event', 'model'));
+        }
     }
 
     // Uncomment the following methods and override them if needed

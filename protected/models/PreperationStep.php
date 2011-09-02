@@ -1,8 +1,8 @@
 <?php
 /**
- * IngredientStepForm class.
- * IngredientStepForm is the data structure for keeping
- * one ingredient step form data. 
+ * PreperationStepForm class.
+ * PreperationStepForm is the data structure for keeping
+ * one preperation step form data. 
  * 
  */
 /*
@@ -12,10 +12,10 @@
  * @property integer $recipe_id
 
  */
-class IngredientStep extends CFormModel {
+class PreperationStep extends CFormModel {
     public $name;
     public $seqNo = 1;
-    public $ingredients;
+    public $description;
     
     public function rules() {
 		return array(
@@ -32,7 +32,7 @@ class IngredientStep extends CFormModel {
 	{
 		return array(
 			'name'=>'Name of Step',
-			'ingredients'=>'List of Ingredients',
+			'description'=>'Description',
 		);
 	}
 

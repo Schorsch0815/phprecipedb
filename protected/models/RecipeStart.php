@@ -19,38 +19,17 @@ class RecipeStart extends CFormModel {
 		);
 	}
 
-    public function getForm() {
-        return new CForm(array(
-//        return new CForm(array(
-			'showErrorSummary'=>true,
-			'elements'=>array(
-				'name'=>array(
-//					'hint'=>'Recipe name',
-				),
-				'description'=>array(
-                    'type'=>'textarea',
-//					'hint'=>'Short description of the recipe',
-                    'rows'=>'5', 'cols'=>'40'
-				),
-				'quantity'=>array(
-//					'hint'=>'Quantity of portion',
-				),
-                'unit_id'=>array(
-                    'label'=>'Unit of quantity',
-                    'type'=>'dropdownlist',
-                    'items'=> Unit::getUnitOptions(),
-                )
-			),
-			'buttons'=>array(
-				'submit'=>array(
-					'type'=>'submit',
-					'label'=>'Next'
-				),
-				'save_draft'=>array(
-					'type'=>'submit',
-					'label'=>'Save'
-				)
-			)
-		), $this);
+    /**
+	 * Declares customized attribute labels.
+	 * If not declared here, an attribute would have a label that is
+	 * the same as its name with the first letter in upper case.
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'name'=>'Recipe Name',
+            'quantity'=>'Quantity or Number of Portions'
+		);
 	}
+    
 }
