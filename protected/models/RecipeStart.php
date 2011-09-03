@@ -13,8 +13,10 @@ class RecipeStart extends CFormModel {
     public function rules() {
 		return array(
 			array('name', 'required'),
-            array('description', 'safe'),
-			array('quantity', 'numerical', 'integerOnly'=>true),
+            array('name, description','filter','filter'=>array($obj=new CHtmlPurifier(),'purify')),
+            array('name', 'length', 'max'=>64),
+            array('description', 'length', 'max'=>256),
+            array('quantity', 'numerical', 'integerOnly'=>true),
 			array('unit_id', 'numerical', 'integerOnly'=>true),
 		);
 	}

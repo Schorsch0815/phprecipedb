@@ -19,7 +19,10 @@ class IngredientStep extends CFormModel {
     
     public function rules() {
 		return array(
-			array('seqNo', 'safe'),
+            array('name', 'length', 'max'=>64),
+            array('name','filter','filter'=>array($obj=new CHtmlPurifier(),'purify')),
+			array('seqNo', 'numerical', 'integerOnly'=>true, 'min'=>1),
+            array('ingredients', 'safe'),
 		);
 	}
     

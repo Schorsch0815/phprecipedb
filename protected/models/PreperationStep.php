@@ -19,7 +19,10 @@ class PreperationStep extends CFormModel {
     
     public function rules() {
 		return array(
-			array('seqNo', 'safe'),
+			array('seqNo', 'numerical', 'integerOnly'=>true, 'min'=>1),
+            array('name, description','filter','filter'=>array($obj=new CHtmlPurifier(),'purify')),
+            array('name', 'length', 'max'=>64),
+            array('description', 'length', 'max'=>256),
 		);
 	}
     
