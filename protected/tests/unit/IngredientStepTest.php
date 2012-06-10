@@ -2,7 +2,7 @@
 class IngredientStepTest extends CTestCase
 {
 
-    public function test()
+    public function testSplit()
     {
         $step = new IngredientStep;
         
@@ -14,6 +14,9 @@ class IngredientStepTest extends CTestCase
 1 Prise 	Zucker
  n. B. 	Pfeffer
  n. B. 	Salz
+ 
+
+
 ";
         $splitArray = $step->parseIngredients();
 
@@ -42,7 +45,8 @@ class IngredientStepTest extends CTestCase
     2 Scheibe(n) Knoblauchzehen
     0,5 TL Kümmel, ganz
     0,5 TL Majoran
-    2 EL Petersilie, glatt";
+    2 EL Petersilie, glatt
+    2 Eier";
 
         $splitArray = $step->parseIngredients();
 
@@ -68,7 +72,8 @@ class IngredientStepTest extends CTestCase
 150 g 	Bauchspeck, mager 			
 2 St 	Eigelbe 			
 1 Prise 	Muskatnuss 			
-	Salz, Pfeffer aus der Mühle";
+	Salz, Pfeffer aus der Mühle
+2 Eier";
 
     $splitArray = $step->parseIngredients();
 
@@ -78,55 +83,46 @@ class IngredientStepTest extends CTestCase
             }
             echo "\n";
         }
-
-        $lWort = 'Hühnchen';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Hühnhcen';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Hühnerei';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Hähnchen';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Müller-Lüdenscheidt';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Muller-Luedenscheidt';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Maier';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-        
-        $lWort = 'Meier';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-        
-        $lWort = 'Mayer';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-        
-        $lWort = 'Meyer';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-
-        $lWort = 'Donaudampfschifffahrtsgesellschaft';
-        echo "germanphonetic Wort $lWort = ". Utilities::germanphonetic($lWort) . "\n";
-        echo "Wort soundex($lWort) = ". soundex($lWort) . "\n";
-        
-/*
-        $lWort = 'Hähnchen';
-        echo "Wort $lWort = ". cologne_phon($lWort);
-        */
     }
-    
+ 
+    public function testValidate()
+    {
+        $step = new IngredientStep;
+        
+        $step->ingredients = "    	Teig: 			
+500 g 	Mehl 			
+10 g 	Trockenhefe 			
+10 g 	Salz 			
+300 ml 	Wasser, lauwarm 			
+1/2 TL 	Staubzucker 			
+	Belag: 			
+2 St 	Zwiebeln 			
+2 EL 	Olivenöl 			
+200 g 	Quark 			
+80 g 	Creme fraîche 			
+150 g 	Bauchspeck, mager 			
+2 St 	Eigelbe 			
+1 Prise 	Muskatnuss 			
+	Salz, Pfeffer aus der Mühle";
+
+        $step->validateIngredients();
+
+        
+       $step->ingredients = "
+           
+500 g 	Mehl 			
+           
+
+10 g 	Trockenhefe 			
+500 g 	Hackfleisch 			
+500 g 	Hühnerfilet
+500 g 	Hühnchen 			
+500 g 	Huhn
+2 Eier
+\t
+\t\t\t\v";
+
+        $step->validateIngredients();
+        
+    }    
 }

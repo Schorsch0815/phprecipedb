@@ -7,17 +7,43 @@ class RecipeController
     public function beforeAction($action)
     {
         $config = array();
+        echo "<pre>";
+//        echo "ReceipeController:\n";
+//        var_dump($this);
+//        echo "\nAction:\n";
+//        var_dump($action);
+        echo "\nApp Session\n";
+        $session = Yii::app()->getSession();
+        echo "\nDump Session\n";
+        var_dump( $session );
+        echo "</pre>";
+        
         switch ($action->id) {
             case 'new':
+                if (!isset($session['numIngredientStep']))
+                    $session['numIngredientStep'] = 1;
+                if (!isset($session['numPreparationStep']))
+                    $session['numPreparationStep'] = 1;
+                
+                $steps = array();
+                $steps[] = 'recipeStart';
+                
+                for ($i = 0; $i < $session['numIngredientStep']; $i++) {
+                    $steps[] = 'ingredientStep' . ($i + 1);
+                }
+                for ($i = 0; $i < $session['numPreparationStep']; $i++) {
+                    $steps[] = 'preperationStep' . ($i + 1);
+                }
+                $steps[] = 'recipeFinish';
+                
                 $config = array(
-                    'steps' => array('recipeStart', 'ingredientStep', 'preperationStep', 'recipeFinish'),
+                    'steps' => $steps,
                     'events' => array(
                         'onStart' => 'wizardStart',
                         'onProcessStep' => 'recipeProcessStep',
                         'onFinished' => 'wizardFinished',
                         'onInvalidStep' => 'wizardInvalidStep'
-                    ),
-                    'menuLastItem' => 'Register'
+                    )
                 );
                 break;
             default:
@@ -86,19 +112,50 @@ class RecipeController
      */
     public function recipeProcessStep($event)
     {
-        $modelName = ucfirst(str_replace('_', '', $event->step));
+        // upper case first letter and trim numbers
+        // ok, only trailing numbers should be trimmed
+        // So be carful and do not use numbers in model names!!!
+        // Only for ingredient and preparation step the steps can have
+        // trailing numbers which has to be removed.
+        $modelName = trim( ucfirst(str_replace('_', '', $event->step)), "1234567890" );
         $model = new $modelName();
         $model->attributes = $event->data;
         
         if (isset($_POST["$modelName"])) {
   			$model->attributes=$_POST["$modelName"];
-            if ($model->validate()) {
+            
+            if (!empty($_REQUEST['parseButton']))
+            {
+                if ($model->validateIngredients())
+                    $model->isParsed = true;
+                
                 $event->sender->save($model->attributes);
-                $event->handled = true;
+
+                print( "New $modelName\n");
+                $modelName = strtolower($modelName);
+                $this->render('form', compact('modelName', 'event', 'model'));
             }
+            elseif (!empty($_REQUEST['newButton']))
+            {
+                $session = Yii::app()->getSession();
+
+                $event->sender->save($model->attributes);
+                $model->isLastStep = false;
+                
+                $session['numIngredientStep'] += 1;
+
+                $modelName = strtolower($modelName);
+                $this->render('form', compact('modelName', 'event', 'model'));
+            }
+            else
+                if ($model->validate()) {
+                    $event->sender->save($model->attributes);
+                    $event->handled = true;
+                }
         }
         else
         {
+            print( "New $modelName\n");
             $modelName = strtolower($modelName);
             $this->render('form', compact('modelName', 'event', 'model'));
         }

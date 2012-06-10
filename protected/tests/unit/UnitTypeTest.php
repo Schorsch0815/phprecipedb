@@ -21,4 +21,11 @@ class UnitTypeTest extends CDbTestCase
         $newUnitType->search();
         UnitType::attributeLabels();
     }
+    
+    public function testListOptions()
+    {
+        $unitTypeOptions = UnitType::getUnitTypeOptions();
+        
+        var_dump( $unitTypeOptions );
+    }
 }

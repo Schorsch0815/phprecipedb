@@ -23,7 +23,9 @@ class m110225_215351_initial_db_setup
         $this
                 ->createTable('tbl_ingredient', array('id' => 'INT NOT NULL AUTO_INCREMENT COMMENT "private key of ingredient"', 'id' => 'pk',
                     'name' => 'VARCHAR(64) NOT NULL COMMENT "name of ingredient"',
-                    'unit_usage' => 'BIT(3)NULL COMMENT "bit field for allowed usage types (base types only)\n0 bit: gramm\n1 bit: ml\n2 bit: pieces"',
+                    'unit_usage' => 'BIT(4)NULL COMMENT "bit field for allowed usage types (base types only)\n0 bit: weight\n1 bit: liquid\n2 bit: pieces\n4bit: something else"',
+                    'cologne_phony_code' => 'VARCHAR(64) NOT NULL COMMENT "cologne phonetic key"',
+                    'soundex_code' => 'VARCHAR(4) NOT NULL COMMENT "soundex key"',
                         ), 'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
 
         /**
