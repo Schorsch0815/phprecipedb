@@ -153,7 +153,7 @@ class Unit
     /**
      * get the array for unit options
      */
-    public function getUnitOptions()
+    public static function getUnitOptions()
     {
         $lUnits = self::model()->findAll();
 
