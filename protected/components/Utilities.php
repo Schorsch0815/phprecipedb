@@ -74,7 +74,7 @@ class Utilities
      * @copyright  Copyright (c) 1996 - 2010, Xtreme Software GmbH, Switzerland (www.x3m.ch)
      * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License   
      */
-    function germanphonetic($word)
+    public static function germanphonetic($word)
     {
         //echo "<br>input: <b>" . $word . "</b>";
 
@@ -236,7 +236,7 @@ class Utilities
         return preg_replace("/(.)\\1+/", "\\1", $phoneticcode);
     }
 
-    public function isStringNotEmpty($string)
+    public static function isStringNotEmpty($string)
     {
         return trim($string);
     }

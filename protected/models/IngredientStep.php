@@ -35,6 +35,7 @@ class IngredientStep
             array('parsedIngredients', 'safe'),
             array('ingredientsArray', 'safe'),
             array('isParsed', 'safe'),
+            array('isLastStep', 'safe'),
         );
     }
 
@@ -76,8 +77,6 @@ class IngredientStep
             
             if (sizeof($lPossibleUnits) > 0)
             {
-                echo "Unit gefunden (plain) für " . $ingredients[$i][2] . "\n";
-                var_dump( $lPossibleUnits );
 
                 // we found exact match in database
                 // append ingredient array for dropbox
@@ -85,7 +84,6 @@ class IngredientStep
             }
             else
             {
-                echo "Unit " . $ingredients[$i][2] . " noch nicht in der Datenbank gefunden.\n";
                 $row[] = array( 0 => $ingredients[$i][2] ); // unit for quantity
             }
             
@@ -96,9 +94,6 @@ class IngredientStep
                     ->queryAll();
             if (sizeof($lPossibleIngredients) > 0)
             {
-                echo "Gefunden (plain) für " . $ingredients[$i][3] . "\n";
-                var_dump( $lPossibleIngredients );
-
                 // we found exact match in database
                 // append ingredient array for dropbox
                 $row[] = array( $lPossibleIngredients[0]['id'] => $lPossibleIngredients[0]['name'] );
@@ -116,9 +111,6 @@ class IngredientStep
                         ->queryAll();
                 if (sizeof($lPossibleIngredients) > 0)
                 {
-                    echo "Gefunden (soundex + gerphony) für " . $ingredients[$i][3] . "\n";
-                    var_dump( $lPossibleIngredients );
-
                     // we found a matching soundex or german phonectics
                     $lTmp = array();
                     
@@ -135,17 +127,12 @@ class IngredientStep
                 }
                 else
                 {
-                    echo "Zutat " . $ingredients[$i][3] . " noch nicht in der Datenbank gefunden. (soundex: ". $curSoundEx . ", german phony: ". $curGermanPhon .".\n";
-
                     // this seems to be a new ingredient
                     $row[] = array( 0 => $ingredients[$i][3] );
                 }
             }
             $this->parsedIngredients[] = $row;
         }
-        
-        echo "Parsed and prepared array for view:\n";
-        var_dump( $this->parsedIngredients );
         
         return true;
     }
@@ -165,9 +152,6 @@ class IngredientStep
 
         if (0 == sizeof($rowArray))
             return NULL;
-        
-        var_dump( $rowArray );
-        echo "vor for Schleife\n";
         
         $i = 0;
         foreach ($rowArray as $row)
@@ -207,9 +191,6 @@ class IngredientStep
                 // just trim whitespaces at end
                 $parsedIngreds[$i][3] = trim( $parsedIngreds[$i][3] );
             }
-            
-            echo "Index 1  >>>".  $parsedIngreds[$i][1] ."<<< Index 2>>>". $parsedIngreds[$i][2] ."<<< Index 3 >>>". $parsedIngreds[$i][3] ."<<<\n";
-            
             // increase parsedIngreds index
             ++$i;
         }

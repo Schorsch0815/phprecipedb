@@ -12,7 +12,7 @@
  *
  * The followings are the available model relations:
  * @property IngredientSection[] $ingredientSections
- * @property PreperationStep[] $preperationSteps
+ * @property PreparationStep[] $preparationSteps
  * @property Unit $unit
  */
 class Recipe extends CActiveRecord
@@ -63,7 +63,7 @@ class Recipe extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'ingredientSections' => array(self::HAS_MANY, 'IngredientSection', 'recipe_id'),
-			'preperationSteps' => array(self::HAS_MANY, 'PreperationStep', 'recipe_id'),
+			'preparationSteps' => array(self::HAS_MANY, 'PreparationStep', 'recipe_id'),
 			'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),
 		);
 	}

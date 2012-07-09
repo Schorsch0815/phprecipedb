@@ -370,6 +370,13 @@ class WizardBehavior extends CBehavior {
 		$this->_menu->items = $items;
 	}
 
+        /**
+         * Redirects to next available step. Used after insert new step
+         */
+        public function continueWithNext() {
+            $this->redirect();
+        }
+
 	/**
 	* Returns a value indicating if the step has expired
 	* @return boolean True if the step has expired, false if not

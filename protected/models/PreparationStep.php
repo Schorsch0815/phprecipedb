@@ -1,8 +1,8 @@
 <?php
 /**
- * PreperationStepForm class.
- * PreperationStepForm is the data structure for keeping
- * one preperation step form data. 
+ * PreparationStepForm class.
+ * PreparationStepForm is the data structure for keeping
+ * one preparation step form data. 
  * 
  */
 /*
@@ -12,17 +12,19 @@
  * @property integer $recipe_id
 
  */
-class PreperationStep extends CFormModel {
+class PreparationStep extends CFormModel {
     public $name;
     public $seqNo = 1;
     public $description;
-    
+    public $isLastStep = true;
+
     public function rules() {
 		return array(
 			array('seqNo', 'numerical', 'integerOnly'=>true, 'min'=>1),
             array('name, description','filter','filter'=>array($obj=new CHtmlPurifier(),'purify')),
             array('name', 'length', 'max'=>64),
             array('description', 'length', 'max'=>256),
+            array('isLastStep', 'safe'),
 		);
 	}
     

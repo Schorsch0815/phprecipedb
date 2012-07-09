@@ -56,17 +56,17 @@ class m110225_215351_initial_db_setup
                 ->addForeignKey('fk_recipe_unit', 'tbl_recipe', 'unit_id', 'tbl_unit', 'id', 'RESTRICT', 'CASCADE');
 
         /**
-         * create preperation step table
+         * create preparation step table
          */
         $this
-                ->createTable('tbl_preperation_step', array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                ->createTable('tbl_preparation_step', array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
                     'name' => 'VARCHAR(64) NOT NULL',
                     'description' => 'VARCHAR(256) NOT NULL',
                     'recipe_id' => 'INT NOT NULL',
                         ), 'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
 
         $this
-                ->addForeignKey('fk_preperation_step_recipe', 'tbl_preperation_step', 'recipe_id', 'tbl_recipe', 'id', 'RESTRICT', 'CASCADE');
+                ->addForeignKey('fk_preparation_step_recipe', 'tbl_preparation_step', 'recipe_id', 'tbl_recipe', 'id', 'RESTRICT', 'CASCADE');
 
         /**
          * create ingredient section table
@@ -104,7 +104,7 @@ class m110225_215351_initial_db_setup
     {
         $this->dropTable('tbl_ingredient_entry');
         $this->dropTable('tbl_ingredient_section');
-        $this->dropTable('tbl_preperation_step');
+        $this->dropTable('tbl_preparation_step');
         $this->dropTable('tbl_recipe');
         $this->dropTable('tbl_unit');
         $this->dropTable('tbl_ingredient');

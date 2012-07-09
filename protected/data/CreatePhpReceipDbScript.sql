@@ -60,17 +60,17 @@ CREATE INDEX `fk_recipe_unit1` ON `phprecipedb`.`recipe` (`unit_id` ASC) ;
 
 
 -- -----------------------------------------------------
--- Table `phprecipedb`.`preperation_step`
+-- Table `phprecipedb`.`preparation_step`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `phprecipedb`.`preperation_step` ;
+DROP TABLE IF EXISTS `phprecipedb`.`preparation_step` ;
 
-CREATE  TABLE IF NOT EXISTS `phprecipedb`.`preperation_step` (
+CREATE  TABLE IF NOT EXISTS `phprecipedb`.`preparation_step` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(64) NOT NULL ,
   `description` TEXT NOT NULL ,
   `recipe_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`id`, `recipe_id`) ,
-  CONSTRAINT `fk_preperation_step_recipe1`
+  CONSTRAINT `fk_preparation_step_recipe1`
     FOREIGN KEY (`recipe_id` )
     REFERENCES `phprecipedb`.`recipe` (`id` )
     ON DELETE CASCADE
@@ -78,9 +78,9 @@ CREATE  TABLE IF NOT EXISTS `phprecipedb`.`preperation_step` (
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
 
-CREATE UNIQUE INDEX `id_UNIQUE` ON `phprecipedb`.`preperation_step` (`id` ASC) ;
+CREATE UNIQUE INDEX `id_UNIQUE` ON `phprecipedb`.`preparation_step` (`id` ASC) ;
 
-CREATE INDEX `fk_preperation_step_recipe1` ON `phprecipedb`.`preperation_step` (`recipe_id` ASC) ;
+CREATE INDEX `fk_preparation_step_recipe1` ON `phprecipedb`.`preparation_step` (`recipe_id` ASC) ;
 
 
 -- -----------------------------------------------------

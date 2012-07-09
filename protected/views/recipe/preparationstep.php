@@ -1,7 +1,7 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'preperation-step-form',
+	'id'=>'preparation-step-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -23,7 +23,7 @@
 
    
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('New preperation step'); ?> 
+            	<?php echo CHtml::submitButton('New preparation step', ($model->isLastStep) ? array( "name"=>"newPreparationButton" ) : array( "disabled"=>"disabled"));  ?> 
 		<?php echo CHtml::submitButton('Next'); ?>
 	</div>
 

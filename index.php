@@ -10,8 +10,23 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
+require_once('FirePHPCore/FirePHP.class.php');
+require_once('FirePHPCore/fb.php');
+//
+//_start();
 
-xdebug_start_trace('/home/jochen/tmp/recipe.trc');
+$firephp = FirePHP::getInstance(true);
+//$firephp->setEnabled(true);
+
+//FB::log('Log message');
+//FB::log('Log message');
+
+//$firephp->log('Plain Message');     // or FB::
+//$firephp->info('Info Message');     // or FB::
+//$firephp->warn('Warn Message');     // or FB::
+//$firephp->error('Error Message');   // or FB::
+
+xdebug_start_trace(dirname(__FILE__).'/../recipe.trc');
 
 Yii::createWebApplication($config)->run();
 
