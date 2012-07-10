@@ -42,7 +42,7 @@ class IngredientSection
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, seq_no, recipe_id', 'required'),
+            array('seq_no, recipe_id', 'required'),
             array('seq_no, recipe_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 64),
             // The following rule is used by search().

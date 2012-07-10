@@ -56,24 +56,25 @@ class m110225_215351_initial_db_setup
                 ->addForeignKey('fk_recipe_unit', 'tbl_recipe', 'unit_id', 'tbl_unit', 'id', 'RESTRICT', 'CASCADE');
 
         /**
-         * create preparation step table
+         * create preparation section table
          */
         $this
-                ->createTable('tbl_preparation_step', array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
-                    'name' => 'VARCHAR(64) NOT NULL',
+                ->createTable('tbl_preparation_section', array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
+                    'name' => 'VARCHAR(64)',
                     'description' => 'VARCHAR(256) NOT NULL',
+                    'seq_no' => 'INT NOT NULL', 
                     'recipe_id' => 'INT NOT NULL',
                         ), 'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
 
         $this
-                ->addForeignKey('fk_preparation_step_recipe', 'tbl_preparation_step', 'recipe_id', 'tbl_recipe', 'id', 'RESTRICT', 'CASCADE');
+                ->addForeignKey('fk_preparation_section_recipe', 'tbl_preparation_section', 'recipe_id', 'tbl_recipe', 'id', 'RESTRICT', 'CASCADE');
 
         /**
          * create ingredient section table
          */
         $this
                 ->createTable('tbl_ingredient_section', array('id' => 'INT NOT NULL AUTO_INCREMENT', 'id' => 'pk',
-                    'name' => 'VARCHAR(64) NOT NULL',
+                    'name' => 'VARCHAR(64)',
                     'seq_no' => 'INT NOT NULL', 'recipe_id' => 'INT NOT NULL',
                         ), 'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
 
@@ -104,7 +105,7 @@ class m110225_215351_initial_db_setup
     {
         $this->dropTable('tbl_ingredient_entry');
         $this->dropTable('tbl_ingredient_section');
-        $this->dropTable('tbl_preparation_step');
+        $this->dropTable('tbl_preparation_section');
         $this->dropTable('tbl_recipe');
         $this->dropTable('tbl_unit');
         $this->dropTable('tbl_ingredient');

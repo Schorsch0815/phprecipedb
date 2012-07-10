@@ -156,11 +156,75 @@ class RecipeController extends Controller {
 
     protected function storeData2DB($event)
     {
+        $recipe = new Recipe();
+
         foreach ($event->getData() as $stepName => $value)
         {
-            FB::log(var_export($stepName));
-            FB::log(var_export($value));
+ //           FB::log(var_export($stepName));
+ //           FB::log(var_export($value));
+            
+            if ($stepName == 'recipeStart')
+            {
+            // create recipe and set attributes
+                $recipe->name = $value['name'];
+                $recipe->description = $value['description'];
+                $recipe->quantity = $value['quantity'];
+                $recipe->unit_id = $value['unit_id'];
+                $isSaved = $recipe->save();
+                FB::log( 'Recipe was saved ' . $isSaved);
+                
+            } elseif (strncmp( $stepName, 'ingredientStep', 14) == 0)
+            {
+                $ingredientSection = new IngredientSection();
+                $ingredientSection->recipe_id = $recipe->id;
+                $ingredientSection->name = $value['name'];
+                $ingredientSection->seq_no = $value['seqNo'];
+                $isSaved = $ingredientSection->save();
+                FB::log( 'Ingredient section was saved ' . $isSaved);
+
+                foreach ($value['ingredientsArray'] as $ingredient)
+                {
+                    $ingredientEntry = new IngredientEntry();
+                    $ingredientEntry->ingredient_section_id = $ingredientSection->id;
+                    $ingredientEntry->ingredient_section_recipe_id = $ingredientSection->recipe_id;
+                    $ingredientEntry->quantity = $ingredient[0];
+                    $ingredientEntry->unit_id = $ingredient[1];
+                    $ingredientEntry->ingredient_id = $ingredient[2];
+                    $isSaved = $ingredientEntry->save();
+                    FB::log( 'Ingredient entry was saved ' . $isSaved);
+
+                    $entries = $ingredientSection->ingredientEntries;
+                    $entries[] = $ingredientEntry;
+                    $ingredientSection->ingredientEntries = $entries;
+                }
+                
+                $isSaved = $ingredientSection->save();
+                FB::log( 'Ingredient section was saved ' . $isSaved);
+
+                $inSects = $recipe->ingredientSections;
+                $inSects[] = $ingredientSection;
+                $recipe->ingredientSections = $inSects;
+                
+            } elseif (strncmp( $stepName, 'preparationStep', 15) == 0)
+            {
+                $preparationSection = new PreparationSection();
+                
+                $preparationSection->recipe_id = $recipe->id;
+                $preparationSection->name = $value['name'];
+                $preparationSection->seq_no = $value['seqNo'];
+                $preparationSection->description = $value['description'];
+                
+                $isSaved = $preparationSection->save();
+                FB::log( 'Preparation section was saved ' . $isSaved);
+
+                $prepSects = $recipe->preparationSections;
+                $prepSects[] = $preparationSection;
+                $recipe->preparationSections = $prepSects;
+            }
         }
+            $isSaved = $recipe->save();
+            
+            FB::log( 'Recipe was saved ' . $isSaved);
     }
     // Uncomment the following methods and override them if needed
     /*

@@ -1,25 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "tbl_recipe".
+ * This is the model class for table "tbl_preparation_section".
  *
- * The followings are the available columns in table 'tbl_recipe':
+ * The followings are the available columns in table 'tbl_preparation_section':
  * @property integer $id
  * @property string $name
  * @property string $description
- * @property double $quantity
- * @property integer $unit_id
+ * @property integer $recipe_id
  *
  * The followings are the available model relations:
- * @property IngredientSection[] $ingredientSections
- * @property PreparationStep[] $preparationSteps
- * @property Unit $unit
+ * @property Recipe $recipe
  */
-class Recipe extends CActiveRecord
+class PreparationSection extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Recipe the static model class
+	 * @param string $className active record class name.
+	 * @return PreparationSection the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -31,7 +29,7 @@ class Recipe extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_recipe';
+		return 'tbl_preparation_section';
 	}
 
 	/**
@@ -42,15 +40,13 @@ class Recipe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-            array('description, quantity, unit_id', 'safe'),
-			array('unit_id', 'numerical', 'integerOnly'=>true),
-			array('quantity', 'numerical'),
+			array('seq_no, description, recipe_id', 'required'),
+			array('seq_no, recipe_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>64),
 			array('description', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, quantity, unit_id', 'safe', 'on'=>'search'),
+			array('id, name, seq_no, description, recipe_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,9 +58,7 @@ class Recipe extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ingredientSections' => array(self::HAS_MANY, 'IngredientSection', 'recipe_id'),
-			'preparationSections' => array(self::HAS_MANY, 'PreparationSection', 'recipe_id'),
-			'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),
+			'recipe' => array(self::BELONGS_TO, 'Recipe', 'recipe_id'),
 		);
 	}
 
@@ -77,13 +71,11 @@ class Recipe extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'description' => 'Description',
-			'quantity' => 'Quantity',
-			'unit_id' => 'Unit',
+			'recipe_id' => 'Recipe',
 		);
 	}
 
-
-    /**
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
@@ -97,10 +89,9 @@ class Recipe extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('quantity',$this->quantity);
-		$criteria->compare('unit_id',$this->unit_id);
+		$criteria->compare('recipe_id',$this->recipe_id);
 
-		return new CActiveDataProvider(get_class($this), array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
