@@ -68,8 +68,10 @@ class IngredientStep
             $row = array();
             
             $row[] = $ingredients[$i][1]; // quantity of ingredient
-            
-            // serach unit for quantitiy
+
+            FB::log($row);
+
+            // search unit for quantitiy
             $lPossibleUnits = $connection->createCommand()->select('id,short_desc')
                     ->from('tbl_unit')
                     ->where('short_desc=:name or description=:name', array(':name' => $ingredients[$i][2]))
@@ -77,7 +79,6 @@ class IngredientStep
             
             if (sizeof($lPossibleUnits) > 0)
             {
-
                 // we found exact match in database
                 // append ingredient array for dropbox
                 $row[] = array( $lPossibleUnits[0]['id'] => $lPossibleUnits[0]['short_desc'] );
@@ -197,6 +198,16 @@ class IngredientStep
         return $parsedIngreds;
     }
 
-
+    public function unparseIngredients()
+    {
+        $this->ingredients = '';
+        
+        foreach ($this->parsedIngredients as $ingredientData) {
+            FB::log( $ingredientData );
+            $this->ingredients .= ('' == $ingredientData[0]) ? '' : ($ingredientData[0] . ' ');
+            $this->ingredients .= ('' == array_shift(array_values($ingredientData[1]))) ? '' :  (array_shift(array_values($ingredientData[1])) . ' ');
+            $this->ingredients .= array_shift(array_values($ingredientData[2])) . "\n";
+        }
+    }
 }
 

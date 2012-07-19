@@ -31,7 +31,11 @@
     <?php endif; ?>
    
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Parse ingredients', ($model->isParsed) ? array("disabled"=>"disabled") : array( "name"=>"parseButton" ) );  ?> 
+		<?php if ($model->isParsed)
+                  echo CHtml::submitButton('Unparse ingredients', array( "name"=>"unparseButton" ) );  
+              else
+                  echo CHtml::submitButton('Parse ingredients', array( "name"=>"parseButton" ) );  
+        ?>
 		<?php echo CHtml::submitButton('New ingredient step', ($model->isParsed && $model->isLastStep) ? array( "name"=>"newIngredientButton" ) : array( "disabled"=>"disabled"));  ?> 
         <?php echo CHtml::submitButton('Next', ($model->isParsed) ? array("name"=>"nextButton") : array("disabled"=>"disabled")); ?>
 	</div>

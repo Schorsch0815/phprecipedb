@@ -100,6 +100,14 @@ class RecipeController extends Controller {
 
                 $modelName = strtolower($modelName);
                 $this->render('form', compact('modelName', 'event', 'model'));
+            } elseif (!empty($_REQUEST['unparseButton'])) {
+                $model->unParseIngredients();
+                $model->isParsed = false;
+
+                $event->sender->save($model->attributes);
+
+                $modelName = strtolower($modelName);
+                $this->render('form', compact('modelName', 'event', 'model'));
             } elseif (!empty($_REQUEST['newIngredientButton'])) {
                 $session = Yii::app()->getSession();
 

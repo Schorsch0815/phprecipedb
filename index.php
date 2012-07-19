@@ -19,7 +19,7 @@ require_once('FirePHPCore/fb.php');
 //$firephp = FirePHP::getInstance(true);
 //$firephp->setEnabled(true);
 
-//FB::log('Log message');
+FB::log('Log message');
 //FB::log('Log message');
 
 //$firephp->log('Plain Message');     // or FB::
