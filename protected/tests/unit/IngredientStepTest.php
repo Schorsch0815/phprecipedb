@@ -1,7 +1,14 @@
 <?php
 
+require_once('FirePHPCore/fb.php');
+
+
 class IngredientStepTest extends CTestCase
 {
+    public static function setUpBeforeClass()
+    {
+        FB::setEnabled(false);
+    }
 
     public function testSplit()
     {
