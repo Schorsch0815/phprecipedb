@@ -1,23 +1,25 @@
 <?php
 
-class RecipeController extends Controller {
+class RecipeController extends Controller
+{
 
-    public function beforeAction($action) {
+    public function beforeAction($action)
+    {
         $config = array();
         $session = Yii::app()->getSession();
 
         switch ($action->id) {
-            case 'new':
-                if (!isset($session['numIngredientStep']))
-                    $session['numIngredientStep'] = 1;
-                if (!isset($session['numPreparationStep']))
-                    $session['numPreparationStep'] = 1;
+        case 'new':
+            if (!isset($session['numIngredientStep']))
+                $session['numIngredientStep'] = 1;
+            if (!isset($session['numPreparationStep']))
+                $session['numPreparationStep'] = 1;
 
-                $config = $this->createMenuConfig($session);
-                break;
-            default:
-//                echo "run into default branch huh...";
-                break;
+            $config = $this->createMenuConfig($session);
+            break;
+        default:
+        //                echo "run into default branch huh...";
+            break;
         }
         if (!empty($config)) {
             $config['class'] = 'application.components.WizardBehavior';
@@ -26,7 +28,8 @@ class RecipeController extends Controller {
         return parent::beforeAction($action);
     }
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $this->render('index');
     }
 
@@ -37,7 +40,8 @@ class RecipeController extends Controller {
      * Leaving $event->handled===false causes the onFinished event to be raised.
      * @param WizardEvent The event
      */
-    public function wizardStart($event) {
+    public function wizardStart($event)
+    {
         $event->handled = true;
     }
 
@@ -45,8 +49,12 @@ class RecipeController extends Controller {
      * Raised when the wizard detects an invalid step
      * @param WizardEvent The event
      */
-    public function wizardInvalidStep($event) {
-        Yii::app()->getUser()->setFlash('notice', $event->step . ' is not a vaild step in this wizard');
+    public function wizardInvalidStep($event)
+    {
+        Yii::app()->getUser()
+            ->setFlash(
+                'notice',
+                $event->step . ' is not a vaild step in this wizard');
     }
 
     /**
@@ -55,14 +63,12 @@ class RecipeController extends Controller {
      * to permanent storage; the demo just displays it
      * @param WizardEvent The event
      */
-    public function wizardFinished($event) {
-        if ($event->step === true)
-        {
+    public function wizardFinished($event)
+    {
+        if ($event->step === true) {
             $this->storeData2DB($event);
             $this->render('completed', compact('event'));
-        }
-        else
-        {
+        } else {
             $this->render('finished', compact('event'));
         }
 
@@ -70,7 +76,8 @@ class RecipeController extends Controller {
         Yii::app()->end();
     }
 
-    public function actionNew($step = null) {
+    public function actionNew($step = null)
+    {
         $this->pageTitle = 'Recipe Wizard';
         $this->process($step);
     }
@@ -79,13 +86,16 @@ class RecipeController extends Controller {
      * Process steps from the quiz
      * @param WizardEvent The event
      */
-    public function recipeProcessStep($event) {
+    public function recipeProcessStep($event)
+    {
         // upper case first letter and trim numbers
         // ok, only trailing numbers should be trimmed
         // So be carful and do not use numbers in model names!!!
         // Only for ingredient and preparation step the steps can have
         // trailing numbers which has to be removed.
-        $modelName = trim(ucfirst(str_replace('_', '', $event->step)), "1234567890");
+        $modelName = trim(
+            ucfirst(str_replace('_', '', $event->step)),
+            "1234567890");
         $model = new $modelName();
         $model->attributes = $event->data;
 
@@ -126,9 +136,8 @@ class RecipeController extends Controller {
                 $session['numPreparationStep'] += 1;
 
                 $event->sender->continueWithNext();
-            } else
-            if ($model->validate()) {
-                
+            } else if ($model->validate()) {
+
                 $event->sender->save($model->attributes);
                 $event->handled = true;
             }
@@ -138,7 +147,8 @@ class RecipeController extends Controller {
         }
     }
 
-    protected function createMenuConfig($session) {
+    protected function createMenuConfig($session)
+    {
         $steps = array();
         $steps[] = 'recipeStart';
 
@@ -150,15 +160,11 @@ class RecipeController extends Controller {
         }
         $steps[] = 'recipeFinish';
 
-        $config = array(
-            'steps' => $steps,
-            'events' => array(
-                'onStart' => 'wizardStart',
-                'onProcessStep' => 'recipeProcessStep',
-                'onFinished' => 'wizardFinished',
-                'onInvalidStep' => 'wizardInvalidStep'
-            )
-        );
+        $config = array('steps' => $steps,
+                'events' => array('onStart' => 'wizardStart',
+                        'onProcessStep' => 'recipeProcessStep',
+                        'onFinished' => 'wizardFinished',
+                        'onInvalidStep' => 'wizardInvalidStep'));
         return $config;
     }
 
@@ -166,73 +172,72 @@ class RecipeController extends Controller {
     {
         $recipe = new Recipe();
 
-        foreach ($event->getData() as $stepName => $value)
-        {
- //           FB::log(var_export($stepName));
- //           FB::log(var_export($value));
-            
-            if ($stepName == 'recipeStart')
-            {
-            // create recipe and set attributes
+        foreach ($event->getData() as $stepName => $value) {
+            //           FB::log(var_export($stepName));
+            //           FB::log(var_export($value));
+
+            if ($stepName == 'recipeStart') {
+                // create recipe and set attributes
                 $recipe->name = $value['name'];
                 $recipe->description = $value['description'];
                 $recipe->quantity = $value['quantity'];
                 $recipe->unit_id = $value['unit_id'];
                 $isSaved = $recipe->save();
-                FB::log( 'Recipe was saved ' . $isSaved);
-                
-            } elseif (strncmp( $stepName, 'ingredientStep', 14) == 0)
-            {
+                FB::log('Recipe was saved ' . $isSaved);
+            } elseif (strncmp($stepName, 'ingredientStep', 14) == 0) {
                 $ingredientSection = new IngredientSection();
                 $ingredientSection->recipe_id = $recipe->id;
                 $ingredientSection->name = $value['name'];
                 $ingredientSection->seq_no = $value['seqNo'];
                 $isSaved = $ingredientSection->save();
-                FB::log( 'Ingredient section was saved ' . $isSaved);
+                FB::log('Ingredient section was saved ' . $isSaved);
 
-                foreach ($value['ingredientsArray'] as $ingredient)
-                {
+                foreach ($value['ingredientsArray'] as $ingredient) {
+                    if (0 == $ingredient[2]) {
+                        // ok this is a new unknown ingredient, let's store it
+
+                    }
                     $ingredientEntry = new IngredientEntry();
-                    $ingredientEntry->ingredient_section_id = $ingredientSection->id;
-                    $ingredientEntry->ingredient_section_recipe_id = $ingredientSection->recipe_id;
+                    $ingredientEntry->ingredient_section_id = $ingredientSection
+                        ->id;
+                    $ingredientEntry->ingredient_section_recipe_id = $ingredientSection
+                        ->recipe_id;
                     $ingredientEntry->quantity = $ingredient[0];
                     $ingredientEntry->unit_id = $ingredient[1];
                     $ingredientEntry->ingredient_id = $ingredient[2];
                     $isSaved = $ingredientEntry->save();
-                    FB::log( 'Ingredient entry was saved ' . $isSaved);
+                    FB::log('Ingredient entry was saved ' . $isSaved);
 
                     $entries = $ingredientSection->ingredientEntries;
                     $entries[] = $ingredientEntry;
                     $ingredientSection->ingredientEntries = $entries;
                 }
-                
+
                 $isSaved = $ingredientSection->save();
-                FB::log( 'Ingredient section was saved ' . $isSaved);
+                FB::log('Ingredient section was saved ' . $isSaved);
 
                 $inSects = $recipe->ingredientSections;
                 $inSects[] = $ingredientSection;
                 $recipe->ingredientSections = $inSects;
-                
-            } elseif (strncmp( $stepName, 'preparationStep', 15) == 0)
-            {
+            } elseif (strncmp($stepName, 'preparationStep', 15) == 0) {
                 $preparationSection = new PreparationSection();
-                
+
                 $preparationSection->recipe_id = $recipe->id;
                 $preparationSection->name = $value['name'];
                 $preparationSection->seq_no = $value['seqNo'];
                 $preparationSection->description = $value['description'];
-                
+
                 $isSaved = $preparationSection->save();
-                FB::log( 'Preparation section was saved ' . $isSaved);
+                FB::log('Preparation section was saved ' . $isSaved);
 
                 $prepSects = $recipe->preparationSections;
                 $prepSects[] = $preparationSection;
                 $recipe->preparationSections = $prepSects;
             }
         }
-            $isSaved = $recipe->save();
-            
-            FB::log( 'Recipe was saved ' . $isSaved);
+        $isSaved = $recipe->save();
+
+        FB::log('Recipe was saved ' . $isSaved);
     }
     // Uncomment the following methods and override them if needed
     /*
@@ -247,7 +252,7 @@ class RecipeController extends Controller {
       ),
       );
       }
-
+    
       public function actions()
       {
       // return external action classes, e.g.:

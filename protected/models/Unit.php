@@ -16,8 +16,7 @@
  * @property Recipe[] $recipes
  * @property UnitType $unitType
  */
-class Unit
-        extends CActiveRecord
+class Unit extends CActiveRecord
 {
 
     public $mBaseUnit = null;
@@ -26,7 +25,7 @@ class Unit
      * Returns the static model of the specified AR class.
      * @return Unit the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -61,16 +60,20 @@ class Unit
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('short_desc, description, unit_type_id, base_unit_factor', 'required'),
-            array('unit_type_id, is_base_unit', 'numerical', 'integerOnly' => true),
-            array('base_unit_factor', 'numerical'),
-            array('is_base_unit', 'safe'),
-            array('short_desc', 'length', 'max' => 20),
-            array('description', 'length', 'max' => 64),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, short_desc, description, unit_type_id, is_base_unit, base_unit_factor', 'safe', 'on' => 'search'),
-        );
+                array(
+                        'short_desc, description, unit_type_id, base_unit_factor',
+                        'required'),
+                array('unit_type_id, is_base_unit', 'numerical',
+                        'integerOnly' => true),
+                array('base_unit_factor', 'numerical'),
+                array('is_base_unit', 'safe'),
+                array('short_desc', 'length', 'max' => 20),
+                array('description', 'length', 'max' => 64),
+                // The following rule is used by search().
+                // Please remove those attributes that should not be searched.
+                array(
+                        'id, short_desc, description, unit_type_id, is_base_unit, base_unit_factor',
+                        'safe', 'on' => 'search'),);
     }
 
     /**
@@ -81,10 +84,11 @@ class Unit
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry', 'unit_id'),
-            'recipes' => array(self::HAS_MANY, 'Recipe', 'unit_id'),
-            'unitType' => array(self::BELONGS_TO, 'UnitType', 'unit_type_id'),
-        );
+                'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry',
+                        'unit_id'),
+                'recipes' => array(self::HAS_MANY, 'Recipe', 'unit_id'),
+                'unitType' => array(self::BELONGS_TO, 'UnitType',
+                        'unit_type_id'),);
     }
 
     /**
@@ -92,14 +96,10 @@ class Unit
      */
     public function attributeLabels()
     {
-        return array(
-            'id' => 'ID',
-            'short_desc' => 'Short Desc',
-            'description' => 'Description',
-            'unit_type_id' => 'Unit Type',
-            'is_base_unit' => 'Is Base Unit',
-            'base_unit_factor' => 'Base Unit Factor',
-        );
+        return array('id' => 'ID', 'short_desc' => 'Short Desc',
+                'description' => 'Description', 'unit_type_id' => 'Unit Type',
+                'is_base_unit' => 'Is Base Unit',
+                'base_unit_factor' => 'Base Unit Factor',);
     }
 
     /**
@@ -120,9 +120,8 @@ class Unit
         $criteria->compare('is_base_unit', $this->is_base_unit);
         $criteria->compare('base_unit_factor', $this->base_unit_factor);
 
-        return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+        return new CActiveDataProvider(get_class($this),
+            array('criteria' => $criteria,));
     }
 
     /**
@@ -145,7 +144,8 @@ class Unit
      */
     public function initBaseUnit($unitTypeId)
     {
-        $data = self::model()->find("unit_type_id = $unitTypeId AND is_base_unit = 1");
+        $data = self::model()
+            ->find("unit_type_id = $unitTypeId AND is_base_unit = 1");
 
         return $data;
     }

@@ -27,19 +27,18 @@ class UnitController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'getBaseUnit'), 'users' => array('*'),
-            ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'), 'users' => array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'), 'users' => array('admin'),
-            ),
-            array('deny', // deny all users
-            'users' => array('*'),
-            ),
-        );
+                array('allow',
+                        // allow all users to perform 'index' and 'view' actions
+                        'actions' => array('index', 'view', 'getBaseUnit'),
+                        'users' => array('*'),),
+                array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                        'actions' => array('create', 'update'),
+                        'users' => array('@'),),
+                array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                        'actions' => array('admin', 'delete'),
+                        'users' => array('admin'),),
+                array('deny', // deny all users
+                'users' => array('*'),),);
     }
 
     /**
@@ -49,9 +48,7 @@ class UnitController extends Controller
 
     public function actionView($id)
     {
-        $this
-            ->render('view',
-                array('model' => $this->loadModel($id),));
+        $this->render('view', array('model' => $this->loadModel($id),));
     }
 
     /**
@@ -72,9 +69,10 @@ class UnitController extends Controller
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $model->mBaseUnit = Unit::initBaseUnit( key(UnitType::getUnitTypeOptions() ) );
+        $model->mBaseUnit = Unit::initBaseUnit(
+            key(UnitType::getUnitTypeOptions()));
 
-        $this->render('create', array('model' => $model, ) );
+        $this->render('create', array('model' => $model,));
     }
 
     /**
@@ -129,9 +127,7 @@ class UnitController extends Controller
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Unit');
-        $this
-            ->render('index',
-                array('dataProvider' => $dataProvider,));
+        $this->render('index', array('dataProvider' => $dataProvider,));
     }
 
     /**
@@ -153,7 +149,7 @@ class UnitController extends Controller
      */
     public function actionGetBaseUnit()
     {
-        echo Unit::initBaseUnit( $_POST['Unit']['unit_type_id'] )->short_desc;
+        echo Unit::initBaseUnit($_POST['Unit']['unit_type_id'])->short_desc;
     }
 
     /**

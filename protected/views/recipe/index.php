@@ -1,7 +1,6 @@
 <?php
-$this->breadcrumbs=array(
-	'Recipe',
-);?>
+$this->breadcrumbs = array('Recipe',);
+?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 
 <p>

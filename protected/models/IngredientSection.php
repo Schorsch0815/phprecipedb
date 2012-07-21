@@ -13,15 +13,14 @@
  * @property IngredientEntry[] $ingredientEntries
  * @property Recipe $recipe
  */
-class IngredientSection
-        extends CActiveRecord
+class IngredientSection extends CActiveRecord
 {
 
     /**
      * Returns the static model of the specified AR class.
      * @return IngredientSection the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -41,14 +40,12 @@ class IngredientSection
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('seq_no, recipe_id', 'required'),
-            array('seq_no, recipe_id', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 64),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, name, seq_no, recipe_id', 'safe', 'on' => 'search'),
-        );
+        return array(array('seq_no, recipe_id', 'required'),
+                array('seq_no, recipe_id', 'numerical', 'integerOnly' => true),
+                array('name', 'length', 'max' => 64),
+                // The following rule is used by search().
+                // Please remove those attributes that should not be searched.
+                array('id, name, seq_no, recipe_id', 'safe', 'on' => 'search'),);
     }
 
     /**
@@ -59,9 +56,9 @@ class IngredientSection
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry', 'ingredient_section_id'),
-            'recipe' => array(self::BELONGS_TO, 'Recipe', 'recipe_id'),
-        );
+                'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry',
+                        'ingredient_section_id'),
+                'recipe' => array(self::BELONGS_TO, 'Recipe', 'recipe_id'),);
     }
 
     /**
@@ -69,12 +66,8 @@ class IngredientSection
      */
     public function attributeLabels()
     {
-        return array(
-            'id' => 'ID',
-            'name' => 'Name',
-            'seq_no' => 'Seq No',
-            'recipe_id' => 'Recipe',
-        );
+        return array('id' => 'ID', 'name' => 'Name', 'seq_no' => 'Seq No',
+                'recipe_id' => 'Recipe',);
     }
 
     /**
@@ -93,9 +86,8 @@ class IngredientSection
         $criteria->compare('seq_no', $this->seq_no);
         $criteria->compare('recipe_id', $this->recipe_id);
 
-        return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+        return new CActiveDataProvider(get_class($this),
+            array('criteria' => $criteria,));
     }
 
 }

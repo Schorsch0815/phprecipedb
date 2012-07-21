@@ -1,17 +1,19 @@
 <?php
+
 class UnitTypeTest extends CDbTestCase
 {
-    public $fixtures= array(
-        'unit_type'=>'UnitType',
-    );
+    public $fixtures = array('unit_type' => 'UnitType',);
 
     public function testUnitTypeOptions()
     {
         $unitTypeOptions = UnitType::getUnitTypeOptions();
 
-        $this->assertTrue( 3 == count($unitTypeOptions));
+        $this->assertTrue(3 == count($unitTypeOptions));
 
-        $this->assertEquals($unitTypeOptions[1],$this->unit_type['unitTypeWeight']['name']);
+        $this
+            ->assertEquals(
+                $unitTypeOptions[1],
+                $this->unit_type['unitTypeWeight']['name']);
     }
 
     public function testImproveCovering()
@@ -21,11 +23,11 @@ class UnitTypeTest extends CDbTestCase
         $newUnitType->search();
         UnitType::attributeLabels();
     }
-    
+
     public function testListOptions()
     {
         $unitTypeOptions = UnitType::getUnitTypeOptions();
-        
-        var_dump( $unitTypeOptions );
+
+        var_dump($unitTypeOptions);
     }
 }

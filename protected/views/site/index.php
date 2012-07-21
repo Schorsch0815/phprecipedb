@@ -1,4 +1,4 @@
-<?php $this->pageTitle=Yii::app()->name; ?>
+<?php $this->pageTitle = Yii::app()->name; ?>
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
@@ -11,12 +11,14 @@
 </ul>
 
 <ul>
-    <li><?php echo CHtml::link('Gii', CController::createUrl("gii/") ); ?>
+    <li><?php echo CHtml::link('Gii', CController::createUrl("gii/")); ?>
 </ul>
 <ul>
-    <li><?php echo CHtml::link('Units', CController::createUrl("unit/") ); ?>
-    <li><?php echo CHtml::link('Ingredients', CController::createUrl("ingredient/") ); ?>
-    <li><?php echo CHtml::link('Recipe', CController::createUrl("recipe/") ); ?>
+    <li><?php echo CHtml::link('Units', CController::createUrl("unit/")); ?>
+    <li><?php echo CHtml::link(
+    'Ingredients',
+    CController::createUrl("ingredient/")); ?>
+    <li><?php echo CHtml::link('Recipe', CController::createUrl("recipe/")); ?>
 </ul>
 <p>For more details on how to further develop this application, please read
 the <a href="http://www.yiiframework.com/doc/">documentation</a>.

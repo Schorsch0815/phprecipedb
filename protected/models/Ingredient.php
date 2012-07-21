@@ -11,15 +11,14 @@
  * The followings are the available model relations:
  * @property IngredientEntry[] $ingredientEntries
  */
-class Ingredient
-        extends CActiveRecord
+class Ingredient extends CActiveRecord
 {
 
     /**
      * Returns the static model of the specified AR class.
      * @return Ingredient the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -54,15 +53,13 @@ class Ingredient
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('name', 'required'),
-            array('name', 'length', 'max' => 64),
-            array('unit_usage', 'numerical', 'integerOnly' => true),
-            array('cologne_phony_code, soundex_code', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, name, unit_usage', 'safe', 'on' => 'search'),
-        );
+        return array(array('name', 'required'),
+                array('name', 'length', 'max' => 64),
+                array('unit_usage', 'numerical', 'integerOnly' => true),
+                array('cologne_phony_code, soundex_code', 'safe'),
+                // The following rule is used by search().
+                // Please remove those attributes that should not be searched.
+                array('id, name, unit_usage', 'safe', 'on' => 'search'),);
     }
 
     /**
@@ -73,8 +70,8 @@ class Ingredient
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry', 'ingredient_id'),
-        );
+                'ingredientEntries' => array(self::HAS_MANY, 'IngredientEntry',
+                        'ingredient_id'),);
     }
 
     /**
@@ -82,11 +79,8 @@ class Ingredient
      */
     public function attributeLabels()
     {
-        return array(
-            'id' => 'ID',
-            'name' => 'Name',
-            'unit_usage' => 'Unit usage',
-        );
+        return array('id' => 'ID', 'name' => 'Name',
+                'unit_usage' => 'Unit usage',);
     }
 
     /**
@@ -104,9 +98,8 @@ class Ingredient
         $criteria->compare('name', $this->name, true);
         $criteria->compare('unit_usage', $this->unit_usage);
 
-        return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+        return new CActiveDataProvider(get_class($this),
+            array('criteria' => $criteria,));
     }
 
 }

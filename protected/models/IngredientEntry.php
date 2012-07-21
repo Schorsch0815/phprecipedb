@@ -16,15 +16,14 @@
  * @property IngredientSection $ingredientSection
  * @property Unit $unit
  */
-class IngredientEntry
-        extends CActiveRecord
+class IngredientEntry extends CActiveRecord
 {
 
     /**
      * Returns the static model of the specified AR class.
      * @return IngredientEntry the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -45,13 +44,18 @@ class IngredientEntry
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('ingredient_section_id, ingredient_section_recipe_id, ingredient_id, unit_id', 'required'),
-            array('ingredient_section_id, ingredient_section_recipe_id, ingredient_id, unit_id', 'numerical', 'integerOnly' => true),
-            array('quantity', 'numerical'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, ingredient_section_id, ingredient_section_recipe_id, ingredient_id, quantity, unit_id', 'safe', 'on' => 'search'),
-        );
+                array(
+                        'ingredient_section_id, ingredient_section_recipe_id, ingredient_id, unit_id',
+                        'required'),
+                array(
+                        'ingredient_section_id, ingredient_section_recipe_id, ingredient_id, unit_id',
+                        'numerical', 'integerOnly' => true),
+                array('quantity', 'numerical'),
+                // The following rule is used by search().
+                // Please remove those attributes that should not be searched.
+                array(
+                        'id, ingredient_section_id, ingredient_section_recipe_id, ingredient_id, quantity, unit_id',
+                        'safe', 'on' => 'search'),);
     }
 
     /**
@@ -62,10 +66,11 @@ class IngredientEntry
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'ingredient' => array(self::BELONGS_TO, 'Ingredient', 'ingredient_id'),
-            'ingredientSection' => array(self::BELONGS_TO, 'IngredientSection', 'ingredient_section_id'),
-            'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),
-        );
+                'ingredient' => array(self::BELONGS_TO, 'Ingredient',
+                        'ingredient_id'),
+                'ingredientSection' => array(self::BELONGS_TO,
+                        'IngredientSection', 'ingredient_section_id'),
+                'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),);
     }
 
     /**
@@ -73,14 +78,11 @@ class IngredientEntry
      */
     public function attributeLabels()
     {
-        return array(
-            'id' => 'ID',
-            'ingredient_section_id' => 'Ingredient Section',
-            'ingredient_section_recipe_id' => 'Ingredient Section Recipe',
-            'ingredient_id' => 'Ingredient',
-            'quantity' => 'Quantity',
-            'unit_id' => 'Unit',
-        );
+        return array('id' => 'ID',
+                'ingredient_section_id' => 'Ingredient Section',
+                'ingredient_section_recipe_id' => 'Ingredient Section Recipe',
+                'ingredient_id' => 'Ingredient', 'quantity' => 'Quantity',
+                'unit_id' => 'Unit',);
     }
 
     /**
@@ -95,15 +97,18 @@ class IngredientEntry
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('ingredient_section_id', $this->ingredient_section_id);
-        $criteria->compare('ingredient_section_recipe_id', $this->ingredient_section_recipe_id);
+        $criteria
+            ->compare('ingredient_section_id', $this->ingredient_section_id);
+        $criteria
+            ->compare(
+                'ingredient_section_recipe_id',
+                $this->ingredient_section_recipe_id);
         $criteria->compare('ingredient_id', $this->ingredient_id);
         $criteria->compare('quantity', $this->quantity);
         $criteria->compare('unit_id', $this->unit_id);
 
-        return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+        return new CActiveDataProvider(get_class($this),
+            array('criteria' => $criteria,));
     }
 
 }

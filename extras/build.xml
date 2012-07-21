@@ -1,69 +1,75 @@
 <project name="phprecipeDB" default="build">
 
-    <description>
-        Hudson CI - build file for phprecipeDB.
+	<description>
+		Hudson CI - build file for phprecipeDB.
 
-        Copyright (C) 2011 Jochen Schales
-    </description>
+		Copyright (C) 2011 Jochen Schales
+	</description>
 
-    <target name="clean">
-        <delete dir="${basedir}/build"/>
-    </target>
-    
-    <target name="prepare">
-        <mkdir dir="${basedir}/build/api"/>
-        <mkdir dir="${basedir}/build/code-browser"/>
-        <mkdir dir="${basedir}/build/coverage"/>
-        <mkdir dir="${basedir}/build/logs"/>
-        <mkdir dir="${basedir}/build/artifacts"/>
-        <mkdir dir="${basedir}/build/unit"/>
-    </target>
+	<target name="clean">
+		<delete dir="${basedir}/build" />
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${basedir}/build/api" />
+		<mkdir dir="${basedir}/build/code-browser" />
+		<mkdir dir="${basedir}/build/coverage" />
+		<mkdir dir="${basedir}/build/logs" />
+		<mkdir dir="${basedir}/build/artifacts" />
+		<mkdir dir="${basedir}/build/unit" />
+	</target>
 
 	<!-- phpdoc: -->
-    <target name="phpdoc">
-        <exec dir="${basedir}" executable="phpdoc">
-            <arg line="-d . -i protected/vendors/ZEND/* -i build/* -i extras/* -t ${basedir}/build/api"/>
-        </exec>
-    </target>
-    
-    <!-- phpcpd: Copy and Paste Detection -->
-    <target name="phpcpd">
-        <exec dir="${basedir}" executable="phpcpd">
-            <arg line="--exclude svn/core/library/ --log-pmd build/logs/pmd-cpd.xml svn/core"/>
-        </exec>
-    </target>
-    
-    <!-- pDepend: Static Code Analysis -->
-    <target name="pdepend">
-        <exec dir="${basedir}" executable="pdepend">
-            <arg line="--jdepend-xml=build/logs/jdepend.xml svn/core"/>
-        </exec>
-    </target>
+	<target name="phpdoc">
+		<exec dir="${basedir}" executable="phpdoc">
+			<arg
+				line="-d . -i protected/vendors/ZEND/* -i build/* -i extras/* -t ${basedir}/build/api" />
+		</exec>
+	</target>
 
-    <target name="phpmd">
-        <exec executable="phpmd">
-            <arg line="svn/core xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml" />
-        </exec>
-    </target>
+	<!-- phpcpd: Copy and Paste Detection -->
+	<target name="phpcpd">
+		<exec dir="${basedir}" executable="phpcpd">
+			<arg
+				line="--exclude svn/core/library/ --log-pmd build/logs/pmd-cpd.xml svn/core" />
+		</exec>
+	</target>
+
+	<!-- pDepend: Static Code Analysis -->
+	<target name="pdepend">
+		<exec dir="${basedir}" executable="pdepend">
+			<arg line="--jdepend-xml=build/logs/jdepend.xml svn/core" />
+		</exec>
+	</target>
+
+	<target name="phpmd">
+		<exec executable="phpmd">
+			<arg
+				line="svn/core xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml" />
+		</exec>
+	</target>
 
 
-    <!-- phpcs: Code Sniffer -->
-    <target name="phpcs">
-        <exec dir="${basedir}" executable="phpcs" 
-            output="${basedir}/build/logs/checkstyle.xml">
-                <arg line=" --standard=ZEND --extensions=php --ignore=protected/vendors/ZEND/* --ignore=build/* --ignore=extras/* --report=checkstyle ."/>
-        </exec>
-    </target>
-    
-    <!-- phpUnit: Unit Test Framework for PHP -->
-    <target name="phpunit">
-        <exec dir="${basedir}/protected/tests" executable="phpunit" failonerror="true">
-            <arg line="--configuration=phpunit-hudson.xml unit" />
-        </exec>
-    </target>
+	<!-- phpcs: Code Sniffer -->
+	<target name="phpcs">
+		<exec dir="${basedir}" executable="phpcs"
+			output="${basedir}/build/logs/checkstyle.xml">
+			<arg
+				line=" --standard=ZEND --extensions=php --ignore=protected/vendors/ZEND/* --ignore=build/* --ignore=extras/* --report=checkstyle ." />
+		</exec>
+	</target>
 
-    <!-- All Tasks in their correct order -->
-    <target name="build" depends="clean,prepare,phpcs,phpdoc,pdepend,phpcpd,phpmd,phpunit" />
+	<!-- phpUnit: Unit Test Framework for PHP -->
+	<target name="phpunit">
+		<exec dir="${basedir}/protected/tests" executable="phpunit"
+			failonerror="true">
+			<arg line="--configuration=phpunit-hudson.xml unit" />
+		</exec>
+	</target>
+
+	<!-- All Tasks in their correct order -->
+	<target name="build"
+		depends="clean,prepare,phpcs,phpdoc,pdepend,phpcpd,phpmd,phpunit" />
 
 </project>
 
