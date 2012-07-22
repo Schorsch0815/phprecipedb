@@ -4,7 +4,8 @@
 
 	<filter>
 		<blacklist>
-			<directory suffix=".php">../../../Yii</directory>
+            <directory suffix=".php">../../../Yii</directory>
+            <directory suffix=".php">../../../yii</directory>
 		</blacklist>
 	</filter>
 
