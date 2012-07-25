@@ -3,7 +3,7 @@
 require_once("FirePHPCore/FirePHP.class.php");
 require_once('FirePHPCore/fb.php');
 
-class UnitTest extends CDbTestCase
+class UtilitiesTest extends CDbTestCase
 {
     public static function setUpBeforeClass()
     {
