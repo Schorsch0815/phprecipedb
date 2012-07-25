@@ -166,4 +166,23 @@ class Unit extends CActiveRecord
         return $lUnitOptions;
     }
 
+    public static function calcUsageBitMask($unitId)
+    {
+        if (0 == $unitId)
+            return 1 << 3;
+
+        $lUnit = self::model()->findByPk($unitId);
+        if ($lUnit) {
+            switch ($lUnit->unit_type_id)
+            {
+                case 1:
+                    return 1 << 0;
+                case 2:
+                    return 1 << 1;
+                case 3:
+                    return 1 << 2;
+            }
+        }
+        return 1 << 3;
+    }
 }

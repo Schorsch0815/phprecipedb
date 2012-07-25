@@ -13,7 +13,8 @@ class m111002_054611_phonetics extends CDbMigration
             ->addColumn(
                 'tbl_ingredient',
                 'cologne_phony_code',
-                'VARCHAR(64) COMMENT "cologne phonetic key"');
+                'VARCHAR(64) COMMENT "cologne phonetic key"'
+        );
         $this
             ->addColumn(
                 'tbl_ingredient',

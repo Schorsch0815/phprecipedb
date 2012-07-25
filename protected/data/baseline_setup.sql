@@ -22,9 +22,10 @@ INSERT INTO `tbl_ingredient` (`id`, `name`, `unit_usage`, `cologne_phony_code`, 
 
 
 INSERT INTO `tbl_unit` (`id`, `short_desc`, `description`, `unit_type_id`, `is_base_unit`, `base_unit_factor`) VALUES
-(1,	'g',	'Gramm',	1,	1,	1),
+(0, '',     '',             4,  1,  1),
+(1, 'g',    'Gramm',        1,  1,  1),
 (2,	'ml',	'Milliliter',	2,	1,	1),
-(3,	'Stück','Stück',	3,	1,	1),
+(3,	'Stück','Stück',	    3,	1,	1),
 (4,	'kg',	'Kilogramm',	1,	0,	1000);
 
 INSERT INTO `tbl_unit_type` (`id`, `name`) VALUES

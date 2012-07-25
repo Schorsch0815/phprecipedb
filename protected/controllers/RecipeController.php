@@ -183,19 +183,24 @@ class RecipeController extends Controller
                 $recipe->quantity = $value['quantity'];
                 $recipe->unit_id = $value['unit_id'];
                 $isSaved = $recipe->save();
-                FB::log('Recipe was saved ' . $isSaved);
             } elseif (strncmp($stepName, 'ingredientStep', 14) == 0) {
                 $ingredientSection = new IngredientSection();
                 $ingredientSection->recipe_id = $recipe->id;
                 $ingredientSection->name = $value['name'];
                 $ingredientSection->seq_no = $value['seqNo'];
                 $isSaved = $ingredientSection->save();
-                FB::log('Ingredient section was saved ' . $isSaved);
 
-                foreach ($value['ingredientsArray'] as $ingredient) {
+                for ($i=0; $i < sizeof($value['ingredientsArray']); ++$i ) {
+                    $ingredient = $value['ingredientsArray'][$i];
                     if (0 == $ingredient[2]) {
                         // ok this is a new unknown ingredient, let's store it
-
+                        $newIngredient = new Ingredient();
+                        $newIngredient->name = $value['parsedIngredients'][$i][2][$ingredient[2]];
+                        $newIngredient->cologne_phony_code = Utilities::germanphonetic($newIngredient->name);
+                        $newIngredient->soundex_code = soundex($newIngredient->name);
+                        $newIngredient->unit_usage = Unit::calcUsageBitMask($ingredient[1]);
+                        $isSaved = $newIngredient->save();
+                        $ingredient[2] = $newIngredient->id;
                     }
                     $ingredientEntry = new IngredientEntry();
                     $ingredientEntry->ingredient_section_id = $ingredientSection
@@ -206,7 +211,6 @@ class RecipeController extends Controller
                     $ingredientEntry->unit_id = $ingredient[1];
                     $ingredientEntry->ingredient_id = $ingredient[2];
                     $isSaved = $ingredientEntry->save();
-                    FB::log('Ingredient entry was saved ' . $isSaved);
 
                     $entries = $ingredientSection->ingredientEntries;
                     $entries[] = $ingredientEntry;
@@ -214,7 +218,6 @@ class RecipeController extends Controller
                 }
 
                 $isSaved = $ingredientSection->save();
-                FB::log('Ingredient section was saved ' . $isSaved);
 
                 $inSects = $recipe->ingredientSections;
                 $inSects[] = $ingredientSection;
@@ -228,7 +231,6 @@ class RecipeController extends Controller
                 $preparationSection->description = $value['description'];
 
                 $isSaved = $preparationSection->save();
-                FB::log('Preparation section was saved ' . $isSaved);
 
                 $prepSects = $recipe->preparationSections;
                 $prepSects[] = $preparationSection;
@@ -236,8 +238,6 @@ class RecipeController extends Controller
             }
         }
         $isSaved = $recipe->save();
-
-        FB::log('Recipe was saved ' . $isSaved);
     }
     // Uncomment the following methods and override them if needed
     /*
@@ -252,7 +252,7 @@ class RecipeController extends Controller
       ),
       );
       }
-    
+
       public function actions()
       {
       // return external action classes, e.g.:
