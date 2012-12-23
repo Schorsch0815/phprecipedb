@@ -166,10 +166,104 @@ class m110225_215351_initial_db_setup extends CDbMigration
                 'id',
                 'RESTRICT',
                 'CASCADE');
+
+        /**
+         * create attribute table
+         */
+        $this
+        ->createTable(
+                'tbl_attribute',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT',
+                        'PRIMARY KEY (`id`)',
+                        'description' => 'VARCHAR(40) NOT NULL',),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        /**
+         * create recipe has attribute table
+         */
+        $this
+        ->createTable(
+                'tbl_recipe_has_attribute',
+                array('recipe_id' => 'INT NOT NULL',
+                        'attribute_id' => 'INT NOT NULL',
+                        'PRIMARY KEY (`recipe_id`, `attribute_id`)',),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+        ->addForeignKey(
+                'fk_recipe_has_attribute_attribute',
+                'tbl_recipe_has_attribute',
+                'attribute_id',
+                'tbl_attribute',
+                'id',
+                'RESTRICT',
+                'CASCADE');
+
+        /**
+         * create course table
+         */
+        $this
+        ->createTable(
+                'tbl_course',
+                array('id' => 'INT NOT NULL AUTO_INCREMENT',
+                        'PRIMARY KEY (`id`)',
+                        'description' => 'VARCHAR(40) NOT NULL',),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+
+        /**
+         * create recipe has course table
+         */
+        $this
+        ->createTable(
+                'tbl_recipe_is_course',
+                array('recipe_id' => 'INT NOT NULL',
+                        'course_id' => 'INT NOT NULL',
+                        'PRIMARY KEY (`recipe_id`, `course_id`)',),
+                'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+
+        $this
+        ->addForeignKey(
+                'fk_recipe_is_course_recipe',
+                'tbl_recipe_is_course',
+                'course_id',
+                'tbl_course',
+                'id',
+                'RESTRICT',
+                'CASCADE');
+
+/*
+        -- -----------------------------------------------------
+        -- Table `phprecipedb`.`recipe_has_course`
+        -- -----------------------------------------------------
+        DROP TABLE IF EXISTS `phprecipedb`.`recipe_has_course` ;
+
+        CREATE  TABLE IF NOT EXISTS `phprecipedb`.`recipe_has_course` (
+        `recipe_id` INT UNSIGNED NOT NULL ,
+        `course_id` INT UNSIGNED NOT NULL ,
+        PRIMARY KEY (`recipe_id`, `course_id`) ,
+        CONSTRAINT `fk_recipe_has_course_recipe`
+        FOREIGN KEY (`recipe_id` )
+        REFERENCES `phprecipedb`.`recipe` (`id` )
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+        CONSTRAINT `fk_recipe_has_course_course`
+        FOREIGN KEY (`course_id` )
+        REFERENCES `phprecipedb`.`course` (`id` )
+        ON DELETE CASCADE
+        ON UPDATE CASCADE);
+
+        CREATE INDEX `fk_recipe_has_course_course` ON `phprecipedb`.`recipe_has_course` (`course_id` ASC) ;
+
+*/
     }
 
     public function safeDown()
     {
+        $this->dropTable('tbl_recipe_is_course');
+        $this->dropTable('tbl_recipe_has_attribute');
+        $this->dropTable('tbl_course');
+        $this->dropTable('tbl_attribute');
         $this->dropTable('tbl_ingredient_entry');
         $this->dropTable('tbl_ingredient_section');
         $this->dropTable('tbl_preparation_section');
