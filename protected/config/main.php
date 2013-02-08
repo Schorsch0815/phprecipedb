@@ -20,24 +20,28 @@ return array('basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
                         // If removed, Gii defaults to localhost only. Edit carefully to taste.
                         'ipFilters' => array('127.0.0.1', '::1'),
                 ),
+                'userGroups'=>array(
+                        'accessCode'=>'123456',
+                )
         ),
         // application components
         'components' => array(
                 'user' => array(
                 // enable cookie-based authentication
                 'allowAutoLogin' => true,
+                'class'=>'userGroups.components.WebUserGroups',
                 ),
                 // uncomment the following to enable URLs in path-format
-                /*
+
                 'urlManager'=>array(
                     'urlFormat'=>'path',
                     'rules'=>array(
-                        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                      '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                      '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                      '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                     ),
+                    'showScriptName'=>false,
                 ),
-                 */
                 /*
                 'db'=>array(
                     'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -69,6 +73,6 @@ return array('basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
         // using Yii::app()->params['paramName']
         'params' => array(
         // this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
+        'adminEmail' => 'jochen@workspace.local',
         ),
 );
