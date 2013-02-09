@@ -41,10 +41,12 @@
                                 'url' => array('/site/page', 'view' => 'about')),
                         array('label' => 'Contact', 'url' => array(
                                 '/site/contact')),
-                        array('label' => 'Login', 'url' => array('/site/login'),
+                        array('label' => 'Admin', 'url' => array('/userGroups/admin'),
+                                'visible' => (Yii::app()->user->getLevel() >= 99)),
+                        array('label' => 'Login', 'url' => array('/userGroups/user/login'),
                                 'visible' => Yii::app()->user->isGuest),
                         array('label' => 'Logout (' . Yii::app()->user->name
-                                    . ')', 'url' => array('/site/logout'),
+                                    . ')', 'url' => array('/userGroups/user/logout'),
                                 'visible' => !Yii::app()->user->isGuest)),));
         ?>
 	</div><!-- mainmenu -->

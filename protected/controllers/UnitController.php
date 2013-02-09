@@ -14,7 +14,7 @@ class UnitController extends Controller
 
     public function filters()
     {
-        return array('accessControl', // perform access control for CRUD operations
+        return array('userGroupsAccessControl', // perform access control for CRUD operations
         );
     }
 
@@ -30,13 +30,13 @@ class UnitController extends Controller
                 array('allow',
                         // allow all users to perform 'index' and 'view' actions
                         'actions' => array('index', 'view', 'getBaseUnit'),
-                        'users' => array('*'),),
+                        'users' => array('@'),),
                 array('allow', // allow authenticated user to perform 'create' and 'update' actions
                         'actions' => array('create', 'update'),
-                        'users' => array('@'),),
+                        'groups' => array('admin', 'editor', 'author'),),
                 array('allow', // allow admin user to perform 'admin' and 'delete' actions
                         'actions' => array('admin', 'delete'),
-                        'users' => array('admin'),),
+                        'groups' => array('admin', 'editor'),),
                 array('deny', // deny all users
                 'users' => array('*'),),);
     }
