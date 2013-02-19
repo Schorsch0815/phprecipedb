@@ -232,6 +232,39 @@ class m110225_215351_initial_db_setup extends CDbMigration
                 'RESTRICT',
                 'CASCADE');
 
+        /**
+         * create categorie table
+         */
+        $this
+        ->createTable(
+        		'tbl_categorie',
+        		array('id' => 'INT NOT NULL AUTO_INCREMENT',
+        				'PRIMARY KEY (`id`)',
+        				'description' => 'VARCHAR(40) NOT NULL',),
+        		'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+        
+        
+        /**
+         * create recipe has categorie table
+        */
+        $this
+        ->createTable(
+        		'tbl_recipe_has_categorie',
+        		array('recipe_id' => 'INT NOT NULL',
+        				'categorie_id' => 'INT NOT NULL',
+        				'PRIMARY KEY (`recipe_id`, `categorie_id`)',),
+        		'ENGINE=InnoDB DEFAULT CHARSET = UTF8 COLLATE utf8_general_ci');
+        
+        $this
+        ->addForeignKey(
+        		'fk_recipe_has_categorie_categorie',
+        		'tbl_recipe_has_categorie',
+        		'categorie_id',
+        		'tbl_categorie',
+        		'id',
+        		'RESTRICT',
+        		'CASCADE');
+        
 /*
         -- -----------------------------------------------------
         -- Table `phprecipedb`.`recipe_has_course`
@@ -260,8 +293,10 @@ class m110225_215351_initial_db_setup extends CDbMigration
 
     public function safeDown()
     {
+        $this->dropTable('tbl_recipe_has_categorie');
         $this->dropTable('tbl_recipe_is_course');
         $this->dropTable('tbl_recipe_has_attribute');
+        $this->dropTable('tbl_categorie');
         $this->dropTable('tbl_course');
         $this->dropTable('tbl_attribute');
         $this->dropTable('tbl_ingredient_entry');

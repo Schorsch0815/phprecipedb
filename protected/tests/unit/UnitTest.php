@@ -5,6 +5,9 @@ require_once('FirePHPCore/fb.php');
 
 class UnitTest extends CDbTestCase
 {
+    public $fixtures = array('unit' => 'Unit',
+                             'unit_type' => 'UnitType',);
+    
     public static function setUpBeforeClass()
     {
         FB::setEnabled(false);

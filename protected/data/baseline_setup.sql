@@ -37,13 +37,24 @@ INSERT INTO `tbl_unit_type` (`id`, `name`) VALUES
 INSERT INTO `tbl_course` (`id`, `description`) VALUES
 (1, 'Vorspeise'),
 (2, 'Hauptgericht'),
-(3, 'Dessert'),
-(4, 'Kuchen & Plätzchen');
+(3, 'Dessert');
 
 INSERT INTO `tbl_attribute` (`id`, `description`) VALUES
 (1, 'einfach'),
 (2, 'raffiniert'),
 (3, 'schnell'),
 (4, 'aufwändig');
+
+INSERT INTO `tbl_categorie` (`id`, `description`) VALUES
+(1, 'Fleisch'),
+(2, 'Geflügel'),
+(3, 'Suppe'),
+(4, 'Fisch & Schalentiere'),
+(5, 'Eintopf'),
+(6, 'Salat'),
+(7, 'Kuchen'),
+(8, 'Gebäck'),
+(9, 'Vegetarisch');
+
 
 -- 2012-04-11 08:36:40

@@ -84,14 +84,6 @@ class UnitType extends CActiveRecord
      */
     public function getUnitTypeOptions()
     {
-        $lUnitTypes = self::model()->findAll();
-
-        $lUnitTypeOptions = array();
-
-        foreach ($lUnitTypes as $i) {
-            $lUnitTypeOptions[$i->id] = $i->name;
-        }
-
-        return $lUnitTypeOptions;
+		return CHtml::listData(self::model()->findAll(), 'id', 'name');
     }
 }

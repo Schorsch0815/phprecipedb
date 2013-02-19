@@ -8,7 +8,8 @@
 class RecipeFinish extends CFormModel
 {
     public $comment = '';
-
+	public $attributes = array();
+	
     public function rules()
     {
         return array(array('comment', 'length', 'max' => 64));

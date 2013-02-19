@@ -1,21 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "tbl_course".
+ * This is the model class for table "tbl_categorie".
  *
- * The followings are the available columns in table 'tbl_course':
+ * The followings are the available columns in table 'tbl_categorie':
  * @property integer $id
  * @property string $description
  *
  * The followings are the available model relations:
- * @property RecipeIsCourse[] $recipeIsCourses
+ * @property RecipeHasCategorie[] $recipeHasCategories
  */
-class Course extends CActiveRecord
+class Categorie extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Course the static model class
+	 * @return Categorie the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +27,7 @@ class Course extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_course';
+		return 'tbl_categorie';
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Course extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recipes' => array(self::MANY_MANY, 'Recipe', 'tbl_recipe_has_course(course_id, recipe_id)'),
+			'recipes' => array(self::MANY_MANY, 'Recipe', 'tbl_recipe_has_categorie(categorie_id, recipe_id)'),
 		);
 	}
 
@@ -69,6 +69,11 @@ class Course extends CActiveRecord
 		);
 	}
 
+	public static function getCategoriesOptions()
+	{
+		return CHtml::listData(self::model()->findAll(), 'id', 'description');
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

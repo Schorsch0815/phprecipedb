@@ -54,6 +54,18 @@ class Recipe extends CActiveRecord
     }
 
     /**
+     * 
+     * @return multitype:multitype:string
+     */
+    public function behaviors()
+    {
+        return array(
+                'activerecord-relation'=>array(
+                        'class'=>'ext.yiiext.behaviors.activerecord-relation.EActiveRecordRelationBehavior',)
+                );
+    }
+    
+    /**
      * @return array relational rules.
      */
     public function relations()
@@ -65,9 +77,29 @@ class Recipe extends CActiveRecord
                         'IngredientSection', 'recipe_id'),
                 'preparationSections' => array(self::HAS_MANY,
                         'PreparationSection', 'recipe_id'),
-                'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),);
+                'unit' => array(self::BELONGS_TO, 'Unit', 'unit_id'),
+	            'categories' => array(self::MANY_MANY, 'Categorie', 'tbl_recipe_has_categorie(recipe_id, categorie_id)'),
+	            'courses' => array(self::MANY_MANY, 'Course', 'tbl_recipe_is_course(recipe_id, course_id)'),
+                'attributes' => array(self::MANY_MANY, 'Attribute', 'tbl_recipe_has_attribute(recipe_id, attribute_id)'),
+        );
     }
 
+    /**
+     * @return array of categories (id => 'description') used for html list boxes
+     */
+    public function getCategories()
+    {
+    	return CHtml::listData(Categorie::model()->findAll(), 'categorie_id', 'description');
+    }
+    
+    /**
+     * @ return array of assigned categories
+     */
+    public function getAssignedCategories()
+    {
+    	return $this->categories;
+    }
+    
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -99,3 +131,63 @@ class Recipe extends CActiveRecord
             array('criteria' => $criteria,));
     }
 }
+
+/*
+ * 
+ * Hi everyone,
+
+I have 2 Models: Users and AdPositions and a linking table user_has_ad_position. With this I can check where each user may put his ads.
+Now the problem is with the assignment of these permissions. When I update a user I want to see a list with his current positions (these should be selected) PLUS all the other ones that I might assign (unselected).
+
+So basically this is what I have:
+/models/User.php
+
+    public function relations() {
+        return array(
+            'positions' => array(self::MANY_MANY, 'AdPosition', 'user_has_ad_position(userid, ad_positionid)'),
+        );
+
+    public function getAdpositions() {
+        // this gives all possible ad_positions
+        $listData = CHtml::listData(AdPosition::model()->findAll(), 'ad_positionid', 'label');
+
+
+        return $listData;
+    }
+
+
+
+And in views/user/_form.php:
+
+...
+<?php echo CHtml::activeListBox($model, 'adpositions',$model->getAdpositions()); ?>
+...
+
+
+There might also be a problem with the field 'adpositions'. Because in the User model I obviously don't have any attribute for AdPositions other than my relation.
+
+Thanks a lot for your help
+
+
+
+Solution (thanks to yjeroen in IRC):
+[code]
+public function getAdpositions() {
+// this gives all possible ad_positions
+
+return CHtml::listData(AdPosition::model()->findAll(), 'ad_positionid', 'label');
+}
+
+public function getAssignedAdpositions() {
+return $this->positions;
+}
+[/php]
+
+and in the view:
+
+<?php echo CHtml::activeListBox($model, 'assignedAdpositions',$model->getAdpositions(), array('multiple'=>'multiple')); ?>
+
+
+Also assignedAdpositions isn't really an attribute it behaves like one thanks to the magic __get() method. 
+
+*/

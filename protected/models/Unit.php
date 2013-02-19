@@ -155,15 +155,7 @@ class Unit extends CActiveRecord
      */
     public static function getUnitOptions()
     {
-        $lUnits = self::model()->findAll();
-
-        $lUnitOptions = array();
-
-        foreach ($lUnits as $i) {
-            $lUnitOptions[$i->id] = $i->short_desc;
-        }
-
-        return $lUnitOptions;
+		return CHtml::listData(self::model()->findAll(), 'id', 'short_desc');
     }
 
     public static function calcUsageBitMask($unitId)
@@ -172,6 +164,7 @@ class Unit extends CActiveRecord
             return 1 << 3;
 
         $lUnit = self::model()->findByPk($unitId);
+        print "UnitId $unitId Desc: $lUnit->description\n";
         if ($lUnit) {
             switch ($lUnit->unit_type_id)
             {

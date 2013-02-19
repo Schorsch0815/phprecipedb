@@ -54,7 +54,7 @@ class Attribute extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recipeHasAttributes' => array(self::HAS_MANY, 'RecipeHasAttribute', 'attribute_id'),
+			'recipes' => array(self::MANY_MANY, 'Recipe', 'tbl_recipe_has_attribute(attribute_id, recipe_id)'),
 		);
 	}
 

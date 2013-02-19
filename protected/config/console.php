@@ -15,4 +15,8 @@ return array('basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
                 'dbtest' => array('class' => 'CDbConnection',
                         'connectionString' => 'mysql:host=localhost;dbname=phprecipedb_test',
                         'emulatePrepare' => true, 'username' => 'root',
-                        'password' => 'SQLIsGood4Me', 'charset' => 'utf8',),),);
+                        'password' => 'SQLIsGood4Me', 'charset' => 'utf8',),
+                'fixture'=>array(
+                        'class'=>'system.test.CDbFixtureManager',),
+        ),
+);

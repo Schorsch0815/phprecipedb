@@ -12,6 +12,20 @@ return CMap::mergeArray(
                             'emulatePrepare' => true, 'username' => 'root',
                             'password' => 'SQLIsGood4Me', 'charset' => 'utf8',
                     ),
+                    'log'=>array(
+                            'class'=>'CLogRouter',
+                            'routes'=>array(
+                                    array(
+                                            'class'=>'CFileLogRoute',
+                                            'levels'=>'error, warning, trace, info',
+                                            'categories'=>'application.*',
+                                    ),
+        
+                            ),
+                    ),
             ),
     )
 );
+
+
+

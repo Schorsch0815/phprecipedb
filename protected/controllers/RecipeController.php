@@ -266,6 +266,9 @@ class RecipeController extends Controller
                 $prepSects = $recipe->preparationSections;
                 $prepSects[] = $preparationSection;
                 $recipe->preparationSections = $prepSects;
+            } elseif ($stepName == 'recipeFinish') {
+            	$recipe->attributes = $value['attributes'];
+            	
             }
         }
         $isSaved = $recipe->save();
