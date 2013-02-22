@@ -13,6 +13,7 @@ require_once($yii);
 
 require_once('FirePHPCore/FirePHP.class.php');
 require_once('FirePHPCore/fb.php');
+
 //
 //_start();
 
