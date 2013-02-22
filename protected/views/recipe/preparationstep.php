@@ -19,7 +19,7 @@
  	<div class="row">
 		<?php echo $form->labelEx($model, 'description'); ?>
 		<?php echo $form
-    ->textArea($model, 'description', array('rows' => 15, 'cols' => 60)); ?>
+    ->textArea($model, 'description', array('placeholder' => 'Description of preparation', 'rows' => 15, 'cols' => 60)); ?>
 		<?php echo $form->error($model, 'description'); ?>
 	</div>
 

@@ -23,6 +23,7 @@ class PreparationStep extends CFormModel
     public function rules()
     {
         return array(
+                array('description', 'required' ),
                 array('seqNo', 'numerical', 'integerOnly' => true, 'min' => 1),
                 array('name, description', 'filter',
                         'filter' => array($obj = new CHtmlPurifier(), 'purify')),

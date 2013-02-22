@@ -70,6 +70,14 @@ class Course extends CActiveRecord
 	}
 
 	/**
+	 * 
+	 */
+	public static function getCourseOptions()
+	{
+		return CHtml::listData(self::model()->findAll(), 'id', 'description');
+	}
+	
+    /**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

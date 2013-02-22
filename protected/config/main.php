@@ -8,7 +8,9 @@
 return array('basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
         'name' => 'phprecipeDB',
         // preloading 'log' component
-        'preload' => array('log'),
+        'preload' => array('log',
+//                'foundation', // preload the foundation component
+        ),
         // autoloading model and component classes
         'import' => array('application.models.*', 'application.components.*',
                 'application.extensions.alphapager.*',
@@ -31,6 +33,7 @@ return array('basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
                 'allowAutoLogin' => true,
                 'class'=>'userGroups.components.WebUserGroups',
                 ),
+//                'foundation' => array("class" => "ext.foundation.components.Foundation"),
                 // uncomment the following to enable URLs in path-format
 
                 'urlManager'=>array(

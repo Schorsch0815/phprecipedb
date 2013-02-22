@@ -1,7 +1,6 @@
 <div class="form">
 <?php $form = $this
-    ->beginWidget(
-        'CActiveForm',
+    ->beginWidget( 'CActiveForm',
         array('id' => 'recipe-start-form', 'enableAjaxValidation' => false,));
 ?>
 
@@ -12,14 +11,14 @@
 	<div class="row">
 		<?php echo $form->labelEx($model, 'name'); ?>
 		<?php echo $form
-    ->textField($model, 'name', array('size' => 32, 'maxlength' => 64)); ?>
+    ->textField($model, 'name', array('placeholder' => 'Recipe name', 'size' => 32, 'maxlength' => 64)); ?>
 		<?php echo $form->error($model, 'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'description'); ?>
 		<?php echo $form
-    ->textArea($model, 'description', array('rows' => 5, 'cols' => 40)); ?>
+    ->textArea($model, 'description', array('placeholder' => 'Description of recipe', 'rows' => 5, 'cols' => 40)); ?>
 		<?php echo $form->error($model, 'description'); ?>
 	</div>
 

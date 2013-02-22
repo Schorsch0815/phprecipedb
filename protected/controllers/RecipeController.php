@@ -171,6 +171,9 @@ class RecipeController extends Controller
 
                 $event->sender->save($model->attributes);
                 $event->handled = true;
+            } else {
+                $modelName = strtolower($modelName);
+                $this->render('form', compact('modelName', 'event', 'model'));
             }
         } else {
             $modelName = strtolower($modelName);
@@ -267,8 +270,10 @@ class RecipeController extends Controller
                 $prepSects[] = $preparationSection;
                 $recipe->preparationSections = $prepSects;
             } elseif ($stepName == 'recipeFinish') {
+            	$recipe->courses = $value['courses'];
+            	$recipe->categories = $value['categories'];
             	$recipe->attributes = $value['attributes'];
-            	
+            	 
             }
         }
         $isSaved = $recipe->save();

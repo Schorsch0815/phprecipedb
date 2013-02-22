@@ -31,7 +31,8 @@ class RecipeStart extends CFormModel
     public function attributeLabels()
     {
         return array('name' => 'Recipe Name',
-                'quantity' => 'Quantity or Number of Portions');
+                     'description' => 'Description',
+                     'quantity' => 'Quantity or Number of Portions');
     }
 
 }

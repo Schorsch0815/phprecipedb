@@ -33,7 +33,5 @@ class RecipeTest extends CDbTestCase
         
         $this->assertEquals( 6, $result->categories[0]->id );
         $this->assertEquals( 'Kuchen', $result->categories[0]->description );
-        
-
-        }
+    }
 }

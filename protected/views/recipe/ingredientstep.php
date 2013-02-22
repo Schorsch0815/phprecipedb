@@ -20,7 +20,7 @@
         <div class="row">
             <?php echo $form->labelEx($model, 'ingredients'); ?>
             <?php echo $form
-        ->textArea($model, 'ingredients', array('rows' => 15, 'cols' => 60)); ?>
+        ->textArea($model, 'ingredients', array('placeholder' => 'Type you ingredient list here e.g. \'500 g flour\'', 'rows' => 15, 'cols' => 60)); ?>
             <?php echo $form->error($model, 'ingredients'); ?>
         </div>
     <?php else : ?>

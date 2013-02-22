@@ -9,6 +9,8 @@ class RecipeFinish extends CFormModel
 {
     public $comment = '';
 	public $attributes = array();
+	public $categories = array();
+	public $courses = array();
 	
     public function rules()
     {

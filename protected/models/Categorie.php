@@ -69,7 +69,7 @@ class Categorie extends CActiveRecord
 		);
 	}
 
-	public static function getCategoriesOptions()
+	public static function getCategorieOptions()
 	{
 		return CHtml::listData(self::model()->findAll(), 'id', 'description');
 	}

@@ -25,16 +25,20 @@ class IngredientStep extends CFormModel
     public $isParsed = false;
     public $isLastStep = true;
 
+    protected $message;
+
     public function rules()
     {
         return array(array('name', 'length', 'max' => 64),
                 array('name', 'filter',
-                        'filter' => array($obj = new CHtmlPurifier(), 'purify')),
+                        'filter' => array($obj = new CHtmlPurifier(), 'purify')
+                ),
                 array('seqNo', 'numerical', 'integerOnly' => true, 'min' => 1),
-                array('ingredients', 'safe'),
+                array('ingredients', 'required'),
                 array('parsedIngredients', 'safe'),
                 array('ingredientsArray', 'safe'), array('isParsed', 'safe'),
-                array('isLastStep', 'safe'),);
+                array('isLastStep', 'safe'),
+        );
     }
 
     /**
@@ -45,7 +49,8 @@ class IngredientStep extends CFormModel
     public function attributeLabels()
     {
         return array('name' => 'Name of Step',
-                'ingredients' => 'List of Ingredients',);
+                'ingredients' => 'List of Ingredients',
+        );
     }
 
     public function validateIngredients()
@@ -77,7 +82,8 @@ class IngredientStep extends CFormModel
                 // we found exact match in database
                 // append ingredient array for dropbox
                 $row[] = array(
-                        $lPossibleUnits[0]['id'] => $lPossibleUnits[0]['short_desc']);
+                        $lPossibleUnits[0]['id'] => $lPossibleUnits[0]['short_desc']
+                );
             } else {
                 $row[] = array(0 => $ingredients[$i][2]); // unit for quantity
             }
@@ -91,7 +97,8 @@ class IngredientStep extends CFormModel
                 // we found exact match in database
                 // append ingredient array for dropbox
                 $row[] = array(
-                        $lPossibleIngredients[0]['id'] => $lPossibleIngredients[0]['name']);
+                        $lPossibleIngredients[0]['id'] => $lPossibleIngredients[0]['name']
+                );
             } else {
                 // now search for matching soundex and/or germany phonetics
                 $curSoundEx = soundex($ingredients[$i][3]);
@@ -104,8 +111,8 @@ class IngredientStep extends CFormModel
                     ->where(
                         'soundex_code = :soundex_code OR cologne_phony_code like :cologne_phony_code',
                         array(':soundex_code' => $curSoundEx,
-                                ':cologne_phony_code' => $curGermanPhon))
-                    ->queryAll();
+                                ':cologne_phony_code' => $curGermanPhon
+                        ))->queryAll();
                 if (sizeof($lPossibleIngredients) > 0) {
                     // we found a matching soundex or german phonectics
                     $lTmp = array();
@@ -134,7 +141,6 @@ class IngredientStep extends CFormModel
     {
         // explode string
         $rowArray = array_filter(explode("\n", $this->ingredients));
-        $parsedIngreds = array();
 
         // remove strin "n. B." from input
         $replacePattern = array('#n\. B\.#');
@@ -145,10 +151,21 @@ class IngredientStep extends CFormModel
             $rowArray,
             array("Utilities", "isStringNotEmpty"));
 
-        if (0 == sizeof($rowArray))
+        if (0 == sizeof($rowArray)) {
+            $this
+                ->addError(
+                    'ingredients',
+                    Yii::t('yii', '{ingredients} cannot be blank.'),
+                        array( '{ingredients}' =>
+                                $this->getAttributeLabel('ingredients')
+                        )
+            );
             return NULL;
+        }
 
         $i = 0;
+        $parsedIngreds = array();
+
         foreach ($rowArray as $row) {
             $resultPregMatch = preg_match(
                 '#\s*([\d/\.,]+|\s*)\s*([\S]*|\s+)[\s]*(.*)[\s]*#',
