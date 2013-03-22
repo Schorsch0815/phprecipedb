@@ -1,9 +1,12 @@
+<?php
+/* @var $this UnitController */
+/* @var $data Unit */
+?>
+
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(
-    CHtml::encode($data->id),
-    array('view', 'id' => $data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('short_desc')); ?>:</b>
@@ -25,5 +28,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('base_unit_factor')); ?>:</b>
 	<?php echo CHtml::encode($data->base_unit_factor); ?>
 	<br />
+
 
 </div>

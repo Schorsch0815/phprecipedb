@@ -1,20 +1,20 @@
 <?php
-$this->breadcrumbs = array('Ingredients',);
+/* @var $this IngredientController */
+/* @var $dataProvider CActiveDataProvider */
 
-$this->menu = array(
-        array('label' => 'Create Ingredient', 'url' => array('create')),
-        array('label' => 'Manage Ingredient', 'url' => array('admin')),);
+$this->breadcrumbs=array(
+	Ingredient::label(2),
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('app', 'Create') . ' ' . Ingredient::label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . Ingredient::label(2), 'url'=>array('admin')),
+);
 ?>
 
-<h1>Ingredients</h1>
-<?php /*$this->widget('zii.widgets.CListView', array(
-      'dataProvider'=>$dataProvider,
-      'itemView'=>'_view',
-      )); */
+<h1><?php echo Ingredient::label(2);?></h1>
 
-$this
-    ->widget(
-        'application.extensions.alphapager.ApListView',
-        array('dataProvider' => $dataProvider, 'itemView' => '_view',
-                'template' => "{alphapager}\n{pager}\n{items}",));
-?>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

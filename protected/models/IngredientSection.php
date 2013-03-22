@@ -66,8 +66,10 @@ class IngredientSection extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'name' => 'Name', 'seq_no' => 'Seq No',
-                'recipe_id' => 'Recipe',);
+        return array('id' => Yii::t('app', 'ID'), 
+                'name' => Yii::t('app', 'Name'), 
+                'seq_no' => Yii::t('app', 'Seq No'),
+                'recipe_id' => Yii::t('app', 'Recipe'),);
     }
 
     /**

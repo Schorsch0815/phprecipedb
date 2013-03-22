@@ -15,16 +15,14 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
-  'This user cannot login in recovery mode.' => 'Questo utente non pu&ograve; loggare in recovery mode',
   'A mail to reset your password was sent to the address {email}.' => 'Una mail con le istruzioni per resettare la tua password &egrave; stata inviata all\'indirizzo {email}',
   'Input the right answer' => 'Inserisci la risposta corretta',
   'Invalid activation code' => 'Codice di Attivazione non valido',
   'Invalid email address' => 'Indirizzo email non valido',
   'Password Recovery' => 'Recupera la Password',
+  'This user cannot login in recovery mode.' => 'Questo utente non pu&ograve; loggare in recovery mode',
   'User Activation' => 'Attivazione Utente',
   'Username not valid' => 'Nome utente non valido',
   'wrong user or password.' => 'Nome utente o password errati',

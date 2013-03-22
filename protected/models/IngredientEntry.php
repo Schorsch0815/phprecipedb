@@ -78,11 +78,12 @@ class IngredientEntry extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID',
-                'ingredient_section_id' => 'Ingredient Section',
-                'ingredient_section_recipe_id' => 'Ingredient Section Recipe',
-                'ingredient_id' => 'Ingredient', 'quantity' => 'Quantity',
-                'unit_id' => 'Unit',);
+        return array('id' => Yii::t('app', 'ID'),
+                'ingredient_section_id' => Yii::t('app', 'Ingredient Section'),
+                'ingredient_section_recipe_id' => Yii::t('app', 'Ingredient Section Recipe'),
+                'ingredient_id' => Yii::t('app', 'Ingredient'), 
+                'quantity' => Yii::t('app', 'Quantity'),
+                'unit_id' => Yii::t('app', 'Unit'),);
     }
 
     /**

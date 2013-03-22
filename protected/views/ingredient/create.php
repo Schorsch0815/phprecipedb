@@ -1,9 +1,18 @@
 <?php
-$this->breadcrumbs = array('Ingredients' => array('index'), 'Create',);
+/* @var $this IngredientController */
+/* @var $model Ingredient */
 
-$this->menu = array(array('label' => 'List Ingredient', 'url' => array('index')),
-        array('label' => 'Manage Ingredient', 'url' => array('admin')),);
+$this->breadcrumbs=array(
+	$model->label(2)=>array('index'),
+	Yii::t('app', 'Create'),
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('app', 'List') . ' ' . $model->label(2), 'url'=>array('index')),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . $model->label(2), 'url'=>array('admin')),
+);
 ?>
 
-<h1>Create Ingredient</h1>
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<h1><?php echo Yii::t('app', 'Create') . ' ' . $model->label(); ?></h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

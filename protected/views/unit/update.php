@@ -1,12 +1,21 @@
 <?php
-$this->breadcrumbs = array('Units' => array('index'),
-        $model->id => array('view', 'id' => $model->id), 'Update',);
+/* @var $this UnitController */
+/* @var $model Unit */
 
-$this->menu = array(array('label' => 'List Unit', 'url' => array('index')),
-        array('label' => 'Create Unit', 'url' => array('create')),
-        array('label' => 'View Unit', 'url' => array('view', 'id' => $model->id)),
-        array('label' => 'Manage Unit', 'url' => array('admin')),);
+$this->breadcrumbs=array(
+	$model->label(2)=>array('index'),
+	$model->id=>array('view','id'=>$model->id),
+	Yii::t('app', 'Update'),
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('app', 'List') . ' ' . $model->label(2), 'url'=>array('index')),
+	array('label'=>Yii::t('app', 'Create') . ' ' . $model->label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'View') . ' ' . $model->label(), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . $model->label(2), 'url'=>array('admin')),
+);
 ?>
 
-<h1>Update Unit <?php echo $model->id; ?></h1>
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<h1><?php echo Yii::t('app', 'Update') .' '. $model->label() . ' ' .$model->id; ?></h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

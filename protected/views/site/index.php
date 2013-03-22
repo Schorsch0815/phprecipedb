@@ -16,7 +16,7 @@
 <ul>
     <li><?php echo CHtml::link('Attributes',CController::createUrl("attribute/")); ?>
     <li><?php echo CHtml::link('Courses',CController::createUrl("course/")); ?>
-        <li><?php echo CHtml::link('Ingredients',CController::createUrl("ingredient/")); ?>
+    <li><?php echo CHtml::link('Ingredients',CController::createUrl("ingredient/")); ?>
     <li><?php echo CHtml::link('Recipes', CController::createUrl("recipe/")); ?>
     <li><?php echo CHtml::link('Units', CController::createUrl("unit/")); ?>
 </ul>

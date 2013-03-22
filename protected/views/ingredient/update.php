@@ -1,13 +1,21 @@
 <?php
-$this->breadcrumbs = array('Ingredients' => array('index'),
-        $model->name => array('view', 'id' => $model->id), 'Update',);
+/* @var $this IngredientController */
+/* @var $model Ingredient */
 
-$this->menu = array(array('label' => 'List Ingredient', 'url' => array('index')),
-        array('label' => 'Create Ingredient', 'url' => array('create')),
-        array('label' => 'View Ingredient',
-                'url' => array('view', 'id' => $model->id)),
-        array('label' => 'Manage Ingredient', 'url' => array('admin')),);
+$this->breadcrumbs=array(
+	$model->label(2)=>array('index'),
+	$model->name=>array('view','id'=>$model->id),
+	Yii::t('app', 'Update'),
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('app', 'List') . ' ' . $model->label(2), 'url'=>array('index')),
+	array('label'=>Yii::t('app', 'Create') . ' ' . $model->label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'View') . ' ' . $model->label(), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . $model->label(2), 'url'=>array('admin')),
+);
 ?>
 
-<h1>Update Ingredient <?php echo $model->id; ?></h1>
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
+<h1><?php echo Yii::t('app', 'Update') .' '. $model->label() . ' ' .$model->id; ?></h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

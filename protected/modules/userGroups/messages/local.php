@@ -6,10 +6,13 @@
 return array(
 	'sourcePath'=>'protected'.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARATOR.'userGroups',
 	'messagePath'=>'protected'.DIRECTORY_SEPARATOR.'modules'.DIRECTORY_SEPARATOR.'userGroups'.DIRECTORY_SEPARATOR.'messages',
-	'languages'=>array('it'), // change this value to the one of the language you want to localize the module into.
+	'languages'=>array('it','de'), // change this value to the one of the language you want to localize the module into.
 	'fileTypes'=>array('php'),
 	'exclude'=>array(
 		'.svn',
 		'/messages',
 	),
+    'overwrite' => true,
+    'translator' => 'Yii::t',  //this is the default but lets be complete
+    'sort' => 'new',
 );

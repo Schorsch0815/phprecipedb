@@ -155,7 +155,7 @@ class IngredientStep extends CFormModel
             $this
                 ->addError(
                     'ingredients',
-                    Yii::t('yii', '{ingredients} cannot be blank.'),
+                    Yii::t('app', 'Ingredients list cannot be blank.'),
                         array( '{ingredients}' =>
                                 $this->getAttributeLabel('ingredients')
                         )
@@ -217,7 +217,7 @@ class IngredientStep extends CFormModel
             $this->ingredients .= array_key_exists('0', $ingredientData[1]) ? ''
                 : (array_shift(array_values($ingredientData[1])) . ' ');
             $this->ingredients .= array_shift(array_values($ingredientData[2]))
-                . "\n";
+                . '\n';
         }
     }
 

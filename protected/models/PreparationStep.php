@@ -39,7 +39,8 @@ class PreparationStep extends CFormModel
      */
     public function attributeLabels()
     {
-        return array('name' => 'Name of Step', 'description' => 'Description',);
+        return array('name' => Yii::t('app', 'Name of Step'), 
+                'description' => Yii::t('app', 'Description'),);
     }
 
 }

@@ -30,9 +30,9 @@ class RecipeStart extends CFormModel
      */
     public function attributeLabels()
     {
-        return array('name' => 'Recipe Name',
-                     'description' => 'Description',
-                     'quantity' => 'Quantity or Number of Portions');
+        return array('name' => Yii::t('app', 'Recipe Name'),
+                     'description' => Yii::t('app', 'Description'),
+                     'quantity' => Yii::t('app', 'Quantity or Number of Portions'));
     }
 
 }

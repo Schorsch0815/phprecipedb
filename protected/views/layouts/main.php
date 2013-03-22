@@ -28,6 +28,7 @@
 
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+        <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'dropdown')); ?>
 	</div><!-- header -->
 
 	<div id="mainmenu">
@@ -36,16 +37,16 @@
         'zii.widgets.CMenu',
         array(
                 'items' => array(
-                        array('label' => 'Home', 'url' => array('/site/index')),
-                        array('label' => 'About',
+                        array('label' => Yii::t('app','Home'), 'url' => array('/site/index')),
+                        array('label' => Yii::t('app','About'),
                                 'url' => array('/site/page', 'view' => 'about')),
-                        array('label' => 'Contact', 'url' => array(
+                        array('label' => Yii::t('app','Contact'), 'url' => array(
                                 '/site/contact')),
-                        array('label' => 'Admin', 'url' => array('/userGroups/admin'),
+                        array('label' => Yii::t('app','Admin'), 'url' => array('/userGroups/admin'),
                                 'visible' => (Yii::app()->user->getLevel() >= 99)),
-                        array('label' => 'Login', 'url' => array('/userGroups/user/login'),
+                        array('label' => Yii::t('app','Login'), 'url' => array('/userGroups/user/login'),
                                 'visible' => Yii::app()->user->isGuest),
-                        array('label' => 'Logout (' . Yii::app()->user->name
+                        array('label' => Yii::t('app','Logout' ) .' (' . Yii::app()->user->name
                                     . ')', 'url' => array('/userGroups/user/logout'),
                                 'visible' => !Yii::app()->user->isGuest)),));
         ?>
@@ -61,7 +62,7 @@
 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by Jochen Schales.<br/>
-		All Rights Reserved.<br/>
+		<?php echo Yii::t('app', 'All Rights Reserved.');?><br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 

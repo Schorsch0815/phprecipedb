@@ -91,15 +91,24 @@ class Unit extends CActiveRecord
                         'unit_type_id'),);
     }
 
+	/**
+	 * @return label of model
+     */
+	public static function label($n = 1) {
+		return Yii::t('app', 'Unit|Units', $n);
+	}
+
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'short_desc' => 'Short Desc',
-                'description' => 'Description', 'unit_type_id' => 'Unit Type',
-                'is_base_unit' => 'Is Base Unit',
-                'base_unit_factor' => 'Base Unit Factor',);
+        return array('id' => Yii::t('app', 'ID'),
+                'short_desc' => Yii::t('app', 'Short Desc'),
+                'description' => Yii::t('app', 'Description'),
+                'unit_type_id' => Yii::t('app', 'Unit Type'),
+                'is_base_unit' => Yii::t('app', 'Is Base Unit'),
+                'base_unit_factor' => Yii::t('app', 'Base Unit Factor'),);
     }
 
     /**

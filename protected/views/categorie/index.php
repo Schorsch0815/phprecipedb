@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Categories',
+	Categorie::label(2),
 );
 
 $this->menu=array(
-	array('label'=>'Create Categorie', 'url'=>array('create')),
-	array('label'=>'Manage Categorie', 'url'=>array('admin')),
+	array('label'=>Yii::t('app', 'Create') . ' ' . Categorie::label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . Categorie::label(2), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Categories</h1>
+<h1><?php echo Categorie::label(2);?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

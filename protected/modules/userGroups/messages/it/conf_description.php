@@ -15,14 +15,13 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
   0 => '',
   'allow everyone, even guests, to see user profiles' => 'permetti a tutti, anche ai guest, di vedere i profili degli utenti',
   'allow user registration' => 'permetti la registrazione utenti',
   'if a user has on a controller admin permissions will have access to write and read pages. If he has write permissions will also have access to read pages' => 'se un utente ha su un controller i permessi di admin avr&agrave; accesso anche alle pagine che richiedono write e read, se ha invece i permessi di write avr&agrave; accesso anche alle pagine di read.',
+  'if true crons must be executed from the server using a crontab' => 'se settato su TRUE i cronjob dovranno essere eseguiti dal server usando crontab',
   'if true users just have to provide user and email to reset their password.<br/>Otherwise they will have to answer their custom question' => 'se &egrave; settato su TRUE gli utenti devono solo dare username e indirizzo email per resettare la propria password, altrimenti gli sar&agrave; chiesta anche la domanda di sicurezza',
   'if true when a user creates an account a mail with an activation code will be sent to his email address' => 'se &egrave; settato su TRUE quando un utente crea un account una mail con un codice di attivazione gli sar&agrave; inviata al suo indirizzo email',
   'if true when a user creates an account a user with user admin rights will have to approve the registration.<br/>If both this setting and user_need_activation are true the user will need to activate is account first and then will need the approval' => 'se &egrave; settato su TRUE quando un utente crea un account un utente con permessi di admin dovr&agrave; approvare la sua registrazione.<br/>Se sia questo settaggio che user_need_activation sono settati su TRUE allora l\'utente dovr&agrave; prima attivare l\'account e poi questo dovr&agrave; essere approvato.',
@@ -38,5 +37,4 @@ return array (
   'users can set their own home' => 'gli utenti possono decidere la propria Home',
   'users with just admin write permissions won\'t see the Main Configuration and Cron Jobs panels' => 'gli utenti con solo permessi admin write non potranno vedere il pannello di configurazione e quello dei Cron Jobs',
   'users with userGroups admin admin permission will have access to everything, just like root' => 'gli utenti con permessi admin admin in userGroups avranno accesso a tutto, come Root',
-  'if true crons must be executed from the server using a crontab' => 'se settato su TRUE i cronjob dovranno essere eseguiti dal server usando crontab'
 );

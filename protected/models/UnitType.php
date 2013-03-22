@@ -53,12 +53,20 @@ class UnitType extends CActiveRecord
         return array('units' => array(self::HAS_MANY, 'Unit', 'unit_type_id'),);
     }
 
+	/**
+	 * @return label of model
+     */
+	public static function label($n = 1) {
+		return Yii::t('app', 'Unit Type|Unit Types', $n);
+	}
+
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'name' => 'Name',);
+        return array('id' => Yii::t('app', 'ID'), 
+                'name' => Yii::t('app', 'Name'),);
     }
 
     /**

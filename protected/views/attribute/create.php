@@ -3,16 +3,16 @@
 /* @var $model Attribute */
 
 $this->breadcrumbs=array(
-	'Attributes'=>array('index'),
-	'Create',
+	$model->label(2)=>array('index'),
+	Yii::t('app', 'Create'),
 );
 
 $this->menu=array(
-	array('label'=>'List Attribute', 'url'=>array('index')),
-	array('label'=>'Manage Attribute', 'url'=>array('admin')),
+	array('label'=>Yii::t('app', 'List') . ' ' . $model->label(2), 'url'=>array('index')),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . $model->label(2), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Attribute</h1>
+<h1><?php echo Yii::t('app', 'Create') . ' ' . $model->label(); ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

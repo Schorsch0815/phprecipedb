@@ -15,13 +15,12 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
-  'view documentation.' => 'legge la documentazione.',
   'can change permission of user and groups whose group level is below his own.' => 'cambia i permessi di gruppi e utenti il cui livello e\' piu\' basso del suo.',
   'can create users and groups and has all the permission of a user with user admin permissions. The level rule still apply.' => 'crea utenti e gruppi ed ha tutti i permessi di un utente con permessi user admin.',
-  'can invite other users.' => 'invita altri utenti.',
   'can edit other users, ban them and approve their registrations.' => 'modifca altri utenti, li banna e approva le registrazioni.',
+  'can invite other users.' => 'invita altri utenti.',
+  0 => '',
+  'view documentation.' => 'legge la documentazione.',
 );

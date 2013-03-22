@@ -25,10 +25,10 @@
 
 	<div class="row buttons">
 	    <?php echo CHtml::submitButton(
-    'New preparation step',
+    Yii::t('app_btn','New preparation step'),
     ($model->isLastStep) ? array("name" => "newPreparationButton")
         : array("disabled" => "disabled")); ?>
-		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::submitButton(Yii::t('app_btn','Next')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 

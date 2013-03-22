@@ -100,14 +100,23 @@ class Recipe extends CActiveRecord
     	return $this->categories;
     }
     
+	/**
+	 * @return label of model
+     */
+	public static function label($n = 1) {
+		return Yii::t('app', 'Recipe|Recipes', $n);
+	}
+
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'name' => 'Name',
-                'description' => 'Description', 'quantity' => 'Quantity',
-                'unit_id' => 'Unit',);
+        return array('id' => Yii::t('app', 'ID'), 
+                'name' => Yii::t('app', 'Name'),
+                'description' => Yii::t('app', 'Description'), 
+                'quantity' => Yii::t('app', 'Quantity'),
+                'unit_id' => Yii::t('app', 'Unit'),);
     }
 
     /**

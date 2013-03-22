@@ -38,7 +38,7 @@ $this->breadcrumbs = array('Login',);
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton(Yii::t('app_btn', 'Login')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->

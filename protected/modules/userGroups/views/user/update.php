@@ -16,7 +16,7 @@
 		'enableAjaxValidation'=>true,
 		'enableClientValidation'=>true,
 	)); ?>
-		<p class="note">Fields with <span class="required">*</span> are required.</p>
+		<p class="note"><?php echo Yii::t('userGroupsModule.general', 'Fields with {*} are required.', array('{*}' => '<span class="required">*</span>'))?></p>
 
 		<?php if (UserGroupsConfiguration::findRule('personal_home') || Yii::app()->user->pbac(array('user.admin', 'admin.admin'))): ?>
 		<div class="row">

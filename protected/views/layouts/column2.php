@@ -11,7 +11,7 @@
 $this
     ->beginWidget(
         'zii.widgets.CPortlet',
-        array('title' => 'Operations',));
+        array('title' => Yii::t('app', 'Operations'),));
 $this
     ->widget(
         'zii.widgets.CMenu',

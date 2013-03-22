@@ -24,8 +24,10 @@ class ContactForm extends CFormModel
                 // email has to be a valid email address
                 array('email', 'email'),
                 // verifyCode needs to be entered correctly
-                array('verifyCode', 'captcha',
-                        'allowEmpty' => !CCaptcha::checkRequirements()),);
+                array('verifyCode', 
+                   'application.extensions.recaptcha.EReCaptchaValidator', 
+                   'privateKey'=>'6LdqHN4SAAAAAM7O87xaMwzODtym8uV7r8qX0YXB'),
+                );
     }
 
     /**
@@ -35,6 +37,10 @@ class ContactForm extends CFormModel
      */
     public function attributeLabels()
     {
-        return array('verifyCode' => 'Verification Code',);
+        return array('name' => Yii::t('app', 'Name' ),
+                'email' => Yii::t('app', 'E-mail' ),
+                'subject' => Yii::t('app', 'Subject' ),
+                'body' => Yii::t('app', 'Message body' ),
+                'verifyCode' => Yii::t('app', 'Verification Code'),);
     }
 }

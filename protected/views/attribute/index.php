@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Attributes',
+	Attribute::label(2),
 );
 
 $this->menu=array(
-	array('label'=>'Create Attribute', 'url'=>array('create')),
-	array('label'=>'Manage Attribute', 'url'=>array('admin')),
+	array('label'=>Yii::t('app', 'Create') . ' ' . Attribute::label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . Attribute::label(2), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Attributes</h1>
+<h1><?php echo Attribute::label(2);?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

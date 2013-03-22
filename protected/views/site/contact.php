@@ -1,9 +1,8 @@
-<?php
-$this->pageTitle = Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs = array('Contact',);
+<?php $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('app', 'Contact Us');
+$this->breadcrumbs = array(Yii::t('app', 'Contact'),);
 ?>
 
-<h1>Contact Us</h1>
+<h1><?php echo Yii::t('app', 'Contact Us');?></h1>
 <?php if (Yii::app()->user->hasFlash('contact')) : ?>
 
 <div class="flash-success">
@@ -12,13 +11,13 @@ $this->breadcrumbs = array('Contact',);
 <?php else : ?>
 
 <p>
-If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
+<?php echo Yii::t('app', 'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.');?>
 </p>
 
 <div class="form">
 <?php $form = $this->beginWidget('CActiveForm'); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"><?php echo Yii::t('app', 'Fields with {asterisk} are required.', array('{asterisk}' => '<span class="required">*</span>')); ?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -45,18 +44,17 @@ If you have business inquiries or other questions, please fill out the following
 
 	<?php if (CCaptcha::checkRequirements()) : ?>
 	<div class="row">
-		<?php echo $form->labelEx($model, 'verifyCode'); ?>
-		<div>
-		<?php $this->widget('CCaptcha'); ?>
-		<?php echo $form->textField($model, 'verifyCode'); ?>
-		</div>
-		<div class="hint">Please enter the letters as they are shown in the image above.
-		<br/>Letters are not case-sensitive.</div>
+        <?php echo $form->labelEx($model, 'verifyCode'); ?>
+        <?php $this->widget('application.extensions.recaptcha.EReCaptcha',
+                array('model'=>$model, 'attribute'=>'verifyCode',
+                     'theme'=>'red', 'language'=>Yii::app()->getLanguage(), 
+                     'publicKey'=>'6LdqHN4SAAAAADStOSXnMObyqAHNb8S2jJLmclvY')) ?>
+		<div class="hint"><?php echo Yii::t('app', 'Please enter the letters as they are shown in the image above.<br/>Letters are not case-sensitive.')?></div>
 	</div>
 	<?php endif; ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
+		<?php echo CHtml::submitButton(Yii::t('app_btn','Submit')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 

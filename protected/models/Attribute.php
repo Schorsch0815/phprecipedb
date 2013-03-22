@@ -59,13 +59,20 @@ class Attribute extends CActiveRecord
 	}
 
 	/**
+	 * @return label of model
+     */
+	public static function label($n = 1) {
+		return Yii::t('app', 'Attribute|Attributes', $n);
+	}
+
+	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'description' => 'Description',
+			'id' => Yii::t('app', 'ID'),
+			'description' => Yii::t('app', 'Description'),
 		);
 	}
 

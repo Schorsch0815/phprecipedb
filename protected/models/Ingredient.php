@@ -74,13 +74,20 @@ class Ingredient extends CActiveRecord
                         'ingredient_id'),);
     }
 
+	/**
+	 * @return label of model
+     */
+	public static function label($n = 1) {
+		return Yii::t('app', 'Ingredient|Ingredients', $n);
+	}
+
     /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'name' => 'Name',
-                'unit_usage' => 'Unit usage',);
+        return array('id' => Yii::t('app', 'ID'), 'name' => Yii::t('app', 'Name'),
+                'unit_usage' => Yii::t('app', 'Unit usage'),);
     }
 
     /**

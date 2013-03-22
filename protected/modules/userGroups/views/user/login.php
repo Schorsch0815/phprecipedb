@@ -1,10 +1,10 @@
 <?php $this->breadcrumbs=array(
-	'Login',
+	Yii::t('userGroupsModule.general','Login'),
 ); ?>
 
-<h1>Login</h1>
+<h1><?php echo Yii::t('userGroupsModule.general','Login')?></h1>
 
-<p>Please fill out the following form with your login credentials:</p>
+<p><?php echo Yii::t('userGroupsModule.general', 'Please fill out the following form with your login credentials:')?></p>
 
 <div id="userGroups-container">
 	<?php if(isset(Yii::app()->request->cookies['success'])): ?>
@@ -54,7 +54,7 @@
 		</div>
 		<?php endif; ?>
 		<div class="row buttons">
-			<?php echo CHtml::submitButton('Login'); ?>
+			<?php echo CHtml::submitButton(Yii::t('userGroupsModule.general','Login')); ?>
 		</div>
 
 	<?php $this->endWidget(); ?>

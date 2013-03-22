@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Next'); ?>
+		<?php echo CHtml::submitButton(Yii::t('app_btn','Next')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 

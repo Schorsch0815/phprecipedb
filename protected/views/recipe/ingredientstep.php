@@ -56,12 +56,12 @@ else
         array("name" => "parseButton"));
         ?>
 		<?php echo CHtml::submitButton(
-    'New ingredient step',
+    Yii::t('app_btn','New ingredient step'),
     ($model->isParsed && $model->isLastStep) ? array(
                 "name" => "newIngredientButton")
         : array("disabled" => "disabled")); ?> 
         <?php echo CHtml::submitButton(
-    'Next',
+    Yii::t('app_btn','Next'),
     ($model->isParsed) ? array("name" => "nextButton")
         : array("disabled" => "disabled")); ?>
 	</div>

@@ -1,22 +1,31 @@
 <?php
-$this->breadcrumbs = array('Units' => array('index'), $model->id,);
+/* @var $this UnitController */
+/* @var $model Unit */
 
-$this->menu = array(array('label' => 'List Unit', 'url' => array('index')),
-        array('label' => 'Create Unit', 'url' => array('create')),
-        array('label' => 'Update Unit', 'url' => array('update',
-                'id' => $model->id)),
-        array('label' => 'Delete Unit', 'url' => '#',
-                'linkOptions' => array(
-                        'submit' => array('delete', 'id' => $model->id),
-                        'confirm' => 'Are you sure you want to delete this item?')),
-        array('label' => 'Manage Unit', 'url' => array('admin')),);
+$this->breadcrumbs=array(
+	$model->label(2)=>array('index'),
+	$model->id,
+);
+
+$this->menu=array(
+	array('label'=>Yii::t('app', 'List') . ' ' . $model->label(2), 'url'=>array('index')),
+	array('label'=>Yii::t('app', 'Create') . ' ' . $model->label(), 'url'=>array('create')),
+	array('label'=>Yii::t('app', 'Update') . ' ' . $model->label(), 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>Yii::t('app', 'Delete') . ' ' . $model->label(), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'))),
+	array('label'=>Yii::t('app', 'Manage') . ' ' . $model->label(2), 'url'=>array('admin')),
+);
 ?>
 
-<h1>View Unit #<?php echo $model->id; ?></h1>
-<?php $this
-    ->widget(
-        'zii.widgets.CDetailView',
-        array('data' => $model,
-                'attributes' => array('id', 'short_desc', 'description',
-                        'unit_type_id', 'is_base_unit', 'base_unit_factor',),));
-?>
+<h1><?php echo Yii::t('app', 'View') . ' ' . $model->label() . ' #' . $model->id; ?></h1>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'short_desc',
+		'description',
+		'unit_type_id',
+		'is_base_unit',
+		'base_unit_factor',
+	),
+)); ?>

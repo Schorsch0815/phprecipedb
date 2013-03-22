@@ -14,7 +14,7 @@ class CategorieController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'userGroupsAccessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -32,7 +32,7 @@ class CategorieController extends Controller
                   'actions' => array('index'),
                   'users' => array('@'),),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                  'actions' => array('new'),
+                  'actions' => array('create', 'update'),
                   'groups' => array('admin'),),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                   'actions' => array('admin', 'delete'),
@@ -150,7 +150,7 @@ class CategorieController extends Controller
 	{
 		$model=Categorie::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404, Yii::t('app', 'The requested page does not exist.'));
 		return $model;
 	}
 

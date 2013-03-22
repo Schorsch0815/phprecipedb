@@ -64,8 +64,10 @@ class PreparationSection extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array('id' => 'ID', 'name' => 'Name',
-                'description' => 'Description', 'recipe_id' => 'Recipe',);
+        return array('id' => Yii::t('app', 'ID'), 
+                'name' => Yii::t('app', 'Name'),
+                'description' => Yii::t('app', 'Description'), 
+                'recipe_id' => Yii::t('app', 'Recipe'),);
     }
 
     /**
